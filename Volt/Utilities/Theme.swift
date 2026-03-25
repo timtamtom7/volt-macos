@@ -30,6 +30,23 @@ enum Theme {
     /// Secondary labels
     static let textSecondary = Color(hex: "8E8E93")
 
+    // MARK: - Color Aliases (for compatibility)
+
+    /// Primary blue (alias for accentCyan)
+    static let primaryBlue = accentCyan
+
+    /// Secondary background (alias for surface)
+    static let secondaryBg = surface
+
+    /// Accent green (alias for primaryGreen)
+    static let accentGreen = primaryGreen
+
+    /// Accent orange (alias for warning)
+    static let accentOrange = warning
+
+    /// Accent red (alias for danger)
+    static let accentRed = danger
+
     // MARK: - Spacing
 
     static let spacingXS: CGFloat = 4

@@ -53,7 +53,7 @@ struct ChargingHeatmapView: View {
             Button(action: { selectedYear -= 1 }) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(Theme.primaryBlue)
+                    .foregroundColor(Theme.accentCyan)
             }
             .buttonStyle(.plain)
 
@@ -65,7 +65,7 @@ struct ChargingHeatmapView: View {
             Button(action: { if selectedYear < Calendar.current.component(.year, from: Date()) { selectedYear += 1 } }) {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(selectedYear < Calendar.current.component(.year, from: Date()) ? Theme.primaryBlue : Theme.textSecondary)
+                    .foregroundColor(selectedYear < Calendar.current.component(.year, from: Date()) ? Theme.accentCyan : Theme.textSecondary)
             }
             .buttonStyle(.plain)
             .disabled(selectedYear >= Calendar.current.component(.year, from: Date()))
@@ -101,18 +101,18 @@ struct ChargingHeatmapView: View {
                         let isFuture = currentYear > calendar.component(.year, from: Date()) || (currentYear == calendar.component(.year, from: Date()) && month > currentMonth)
 
                         RoundedRectangle(cornerRadius: 2)
-                            .fill(isFuture ? Theme.secondaryBg : heatmapColor(intensity: intensity))
+                            .fill(isFuture ? Theme.surface : heatmapColor(intensity: intensity))
                             .frame(height: 20)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 2)
-                                    .stroke(isCurrentMonth ? Theme.primaryBlue : Color.clear, lineWidth: 1)
+                                    .stroke(isCurrentMonth ? Theme.accentCyan : Color.clear, lineWidth: 1)
                             )
                     }
                 }
             }
         }
         .padding(12)
-        .background(Theme.secondaryBg)
+        .background(Theme.surface)
         .cornerRadius(10)
     }
 
@@ -197,11 +197,11 @@ struct ChargingHeatmapView: View {
 
     private func heatmapColor(intensity: Int) -> Color {
         switch intensity {
-        case 0: return Theme.secondaryBg
-        case 1: return Theme.accentGreen.opacity(0.3)
-        case 2: return Theme.accentGreen.opacity(0.5)
-        case 3: return Theme.accentGreen.opacity(0.7)
-        default: return Theme.accentGreen
+        case 0: return Theme.surface
+        case 1: return Theme.primaryGreen.opacity(0.3)
+        case 2: return Theme.primaryGreen.opacity(0.5)
+        case 3: return Theme.primaryGreen.opacity(0.7)
+        default: return Theme.primaryGreen
         }
     }
 }
