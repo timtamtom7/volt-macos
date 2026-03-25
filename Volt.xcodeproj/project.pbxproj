@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F6BB5A09715D1703047A60C /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A12E4815593065399F45DF /* SettingsStore.swift */; };
 		1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */; };
+		3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */; };
 		43F11E36553F2BC0A63F92DA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C59E4DEBE94D9E6B345ADA /* main.swift */; };
+		48AA5A0B986751C0EC2EF9F8 /* VoltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */; };
+		69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08E05276FCB3C698544114D /* ChargingScheduleView.swift */; };
+		6C2D616C907364813440EBEF /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */; };
+		7D6A465A3FDB194E2F0E3680 /* StatsHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */; };
+		7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */; };
 		800ADCCB554A6569B9536C22 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D24C4003BDB32E42566C5FDA /* SQLite */; };
 		CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBF295006A2659DC1F6505 /* Theme.swift */; };
 		DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FF995C8A9191EEE7C845E /* VoltApp.swift */; };
@@ -19,13 +24,18 @@
 
 /* Begin PBXFileReference section */
 		02EA057757AA3CB604EABD82 /* Volt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Volt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltStore.swift; sourceTree = "<group>"; };
 		0CFBF295006A2659DC1F6505 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsHistoryView.swift; sourceTree = "<group>"; };
+		4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		66C59E4DEBE94D9E6B345ADA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSession.swift; sourceTree = "<group>"; };
 		B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryService.swift; sourceTree = "<group>"; };
-		C1A12E4815593065399F45DF /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
 		D87FF995C8A9191EEE7C845E /* VoltApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltApp.swift; sourceTree = "<group>"; };
 		DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E08E05276FCB3C698544114D /* ChargingScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingScheduleView.swift; sourceTree = "<group>"; };
+		FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +62,9 @@
 			isa = PBXGroup;
 			children = (
 				B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */,
-				C1A12E4815593065399F45DF /* SettingsStore.swift */,
+				FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */,
+				4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */,
+				080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -73,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */,
+				B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -89,7 +102,9 @@
 		A4871753CCA84A2B94AE81F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E08E05276FCB3C698544114D /* ChargingScheduleView.swift */,
 				DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */,
+				1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -174,10 +189,15 @@
 			files = (
 				F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */,
 				1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */,
+				69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */,
+				3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */,
 				FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */,
-				0F6BB5A09715D1703047A60C /* SettingsStore.swift in Sources */,
+				6C2D616C907364813440EBEF /* DatabaseService.swift in Sources */,
+				7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */,
+				7D6A465A3FDB194E2F0E3680 /* StatsHistoryView.swift in Sources */,
 				CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */,
 				DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */,
+				48AA5A0B986751C0EC2EF9F8 /* VoltStore.swift in Sources */,
 				43F11E36553F2BC0A63F92DA /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

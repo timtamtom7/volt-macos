@@ -1,20 +1,6 @@
 import AppKit
 import SwiftUI
 
-// MARK: - MainActor VoltState
-
-@MainActor
-final class VoltState: ObservableObject {
-    let batteryService = BatteryService()
-    let store: VoltStore
-
-    init() {
-        store = VoltStore(batteryService: batteryService)
-        store.loadSettings()
-        store.refreshBatteryInfo()
-    }
-}
-
 // MARK: - App Delegate
 
 final class VoltAppDelegate: NSObject, NSApplicationDelegate {
@@ -30,6 +16,7 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
         setupPopover()
         setupEventMonitor()
         startStatusUpdateTimer()
+        requestNotificationPermission()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -53,7 +40,7 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
 
     private func setupPopover() {
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 320, height: 280)
+        popover.contentSize = NSSize(width: 380, height: 420)
         popover.behavior = .transient
         popover.animates = true
 
@@ -86,6 +73,12 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    // MARK: - Notifications
+
+    private func requestNotificationPermission() {
+        VoltNotificationService.shared.requestAuthorization { _ in }
+    }
+
     // MARK: - Actions
 
     @objc private func togglePopover() {
@@ -100,5 +93,18 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
             }
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
+    }
+}
+
+// MARK: - Main Actor VoltState
+
+@MainActor
+final class VoltState: ObservableObject {
+    let batteryService = BatteryService()
+    let store: VoltStore
+
+    init() {
+        store = VoltStore(batteryService: batteryService)
+        store.refreshBatteryInfo()
     }
 }

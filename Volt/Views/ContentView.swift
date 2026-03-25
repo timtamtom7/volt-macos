@@ -2,9 +2,51 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var voltStore: VoltStore
+    @State private var selectedTab = 0
 
     var body: some View {
-        VStack(spacing: 16) {
+        TabView(selection: $selectedTab) {
+            BatteryTabView(voltStore: voltStore)
+                .tabItem {
+                    Label("Battery", systemImage: "bolt.fill")
+                }
+                .tag(0)
+
+            StatsHistoryView(voltStore: voltStore)
+                .tabItem {
+                    Label("Stats", systemImage: "chart.bar.fill")
+                }
+                .tag(1)
+
+            ChargingScheduleView(voltStore: voltStore)
+                .tabItem {
+                    Label("Schedule", systemImage: "clock")
+                }
+                .tag(2)
+
+            SettingsTabView(voltStore: voltStore)
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape")
+                }
+                .tag(3)
+        }
+        .frame(width: 380, height: 420)
+        .onAppear {
+            voltStore.startPolling(interval: 30)
+        }
+        .onDisappear {
+            voltStore.stopPolling()
+        }
+    }
+}
+
+// MARK: - Battery Tab
+
+struct BatteryTabView: View {
+    @ObservedObject var voltStore: VoltStore
+
+    var body: some View {
+        VStack(spacing: 0) {
             // Header
             HStack {
                 Text("Volt")
@@ -24,14 +66,12 @@ struct ContentView: View {
                 ProgressView()
                 Spacer()
             } else {
-                // Battery status
                 BatteryStatusSection(info: voltStore.currentCharge)
                     .padding(.horizontal, 16)
 
                 Divider()
                     .padding(.horizontal, 16)
 
-                // Limit controls
                 LimitSection(voltStore: voltStore)
                     .padding(.horizontal, 16)
 
@@ -47,13 +87,110 @@ struct ContentView: View {
                 .padding(.bottom, 12)
             }
         }
-        .frame(width: 320, height: 280)
         .background(Theme.background)
-        .onAppear {
-            voltStore.startPolling(interval: 30)
+    }
+}
+
+// MARK: - Settings Tab
+
+struct SettingsTabView: View {
+    @ObservedObject var voltStore: VoltStore
+    @State private var showingExportSheet = false
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                // Notifications section
+                settingsSection(title: "NOTIFICATIONS") {
+                    VStack(spacing: 12) {
+                        Toggle("Fully Charged Alert", isOn: $voltStore.notifyFullyCharged)
+                            .toggleStyle(.switch)
+                            .controlSize(.small)
+
+                        Toggle("Low Battery Alert", isOn: $voltStore.notifyLowBattery)
+                            .toggleStyle(.switch)
+                            .controlSize(.small)
+
+                        if voltStore.notifyLowBattery {
+                            HStack {
+                                Text("Threshold:")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Theme.textSecondary)
+                                Slider(
+                                    value: Binding(
+                                        get: { Double(voltStore.lowBatteryThreshold) },
+                                        set: { voltStore.lowBatteryThreshold = Int($0) }
+                                    ),
+                                    in: 5...50,
+                                    step: 5
+                                )
+                                Text("\(voltStore.lowBatteryThreshold)%")
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .frame(width: 36)
+                            }
+                        }
+
+                        Toggle("High Temperature Alert", isOn: $voltStore.notifyHighTemp)
+                            .toggleStyle(.switch)
+                            .controlSize(.small)
+                    }
+                }
+
+                // Export section
+                settingsSection(title: "DATA") {
+                    VStack(spacing: 8) {
+                        Button(action: exportSessions) {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Export Sessions as CSV")
+                            }
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Theme.primaryBlue)
+                        }
+                        .buttonStyle(.plain)
+
+                        Text("Export your charging history for analysis")
+                            .font(.system(size: 10))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+                }
+
+                // About section
+                settingsSection(title: "ABOUT") {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Volt")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundColor(Theme.textPrimary)
+                        Text("Battery monitor and optimizer for Mac")
+                            .font(.system(size: 11))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+                }
+            }
+            .padding(16)
         }
-        .onDisappear {
-            voltStore.stopPolling()
+        .background(Theme.background)
+    }
+
+    private func settingsSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundColor(Theme.textSecondary)
+                .tracking(0.05)
+
+            VStack(alignment: .leading, spacing: 8) {
+                content()
+            }
+            .padding(12)
+            .background(Theme.secondaryBg)
+            .cornerRadius(10)
+        }
+    }
+
+    private func exportSessions() {
+        if let url = voltStore.exportSessionsCSV() {
+            NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
         }
     }
 }
@@ -184,4 +321,10 @@ struct LimitSection: View {
             .controlSize(.small)
         }
     }
+}
+
+// MARK: - Color Extension for Theme
+
+extension Color {
+    static let accentBlue = Theme.primaryBlue
 }
