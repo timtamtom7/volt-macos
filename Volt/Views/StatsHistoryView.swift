@@ -2,6 +2,7 @@ import SwiftUI
 
 struct StatsHistoryView: View {
     @ObservedObject var voltStore: VoltStore
+    @State private var showHeatmap = false
 
     var body: some View {
         ScrollView {
@@ -17,6 +18,11 @@ struct StatsHistoryView: View {
             }
             .padding(16)
         }
+        .background(Theme.background)
+        .sheet(isPresented: $showHeatmap) {
+            ChargingHeatmapView(isPresented: $showHeatmap)
+                .environmentObject(voltStore)
+        }
     }
 
     // MARK: - Health Overview
@@ -28,6 +34,16 @@ struct StatsHistoryView: View {
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
+                Button(action: { showHeatmap = true }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "calendar")
+                            .font(.system(size: 10))
+                        Text("Heatmap")
+                            .font(.system(size: 11))
+                    }
+                    .foregroundColor(Theme.primaryBlue)
+                }
+                .buttonStyle(.plain)
             }
 
             HStack(spacing: 16) {

@@ -21,6 +21,7 @@
 		800ADCCB554A6569B9536C22 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D24C4003BDB32E42566C5FDA /* SQLite */; };
 		835D5065784B3FBF8308F26D /* HealthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */; };
 		86D870422239553BB7BD9B6C /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AD66F34B64598E3B23F4D /* ExportView.swift */; };
+		8EAF71B971D52BD59ABF4F1A /* ChargingHeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */; };
 		8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */; };
 		B13D256B3BA78E570BAB95DC /* iCloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */; };
 		CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBF295006A2659DC1F6505 /* Theme.swift */; };
@@ -40,6 +41,7 @@
 		584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailView.swift; sourceTree = "<group>"; };
 		5AA6408B205E3851FE72FB56 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		66C59E4DEBE94D9E6B345ADA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingHeatmapView.swift; sourceTree = "<group>"; };
 		8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthRecord.swift; sourceTree = "<group>"; };
 		8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudSyncManager.swift; sourceTree = "<group>"; };
 		B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSession.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		A4871753CCA84A2B94AE81F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */,
 				E08E05276FCB3C698544114D /* ChargingScheduleView.swift */,
 				DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */,
 				FF6AD66F34B64598E3B23F4D /* ExportView.swift */,
@@ -215,6 +218,7 @@
 				F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */,
 				1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */,
 				F774D2245E56C25752086457 /* ChargingExportService.swift in Sources */,
+				8EAF71B971D52BD59ABF4F1A /* ChargingHeatmapView.swift in Sources */,
 				69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */,
 				3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */,
 				FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */,
