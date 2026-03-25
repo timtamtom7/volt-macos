@@ -19,11 +19,13 @@
 		7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */; };
 		800ADCCB554A6569B9536C22 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D24C4003BDB32E42566C5FDA /* SQLite */; };
 		835D5065784B3FBF8308F26D /* HealthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */; };
+		86D870422239553BB7BD9B6C /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AD66F34B64598E3B23F4D /* ExportView.swift */; };
 		8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */; };
 		B13D256B3BA78E570BAB95DC /* iCloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */; };
 		CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBF295006A2659DC1F6505 /* Theme.swift */; };
 		DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FF995C8A9191EEE7C845E /* VoltApp.swift */; };
 		F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */; };
+		F774D2245E56C25752086457 /* ChargingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE789967510DF7DB5E3A985C /* ChargingExportService.swift */; };
 		FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,11 +43,13 @@
 		B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSession.swift; sourceTree = "<group>"; };
 		B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryService.swift; sourceTree = "<group>"; };
 		CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
+		CE789967510DF7DB5E3A985C /* ChargingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingExportService.swift; sourceTree = "<group>"; };
 		D87FF995C8A9191EEE7C845E /* VoltApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltApp.swift; sourceTree = "<group>"; };
 		DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E08E05276FCB3C698544114D /* ChargingScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingScheduleView.swift; sourceTree = "<group>"; };
 		F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTrackingService.swift; sourceTree = "<group>"; };
 		FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		FF6AD66F34B64598E3B23F4D /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */,
+				CE789967510DF7DB5E3A985C /* ChargingExportService.swift */,
 				FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */,
 				F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */,
 				8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */,
@@ -118,6 +123,7 @@
 			children = (
 				E08E05276FCB3C698544114D /* ChargingScheduleView.swift */,
 				DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */,
+				FF6AD66F34B64598E3B23F4D /* ExportView.swift */,
 				584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */,
 				1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */,
 			);
@@ -205,10 +211,12 @@
 				0B9626D738F2A216A1290AE0 /* BatteryHealthRecord.swift in Sources */,
 				F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */,
 				1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */,
+				F774D2245E56C25752086457 /* ChargingExportService.swift in Sources */,
 				69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */,
 				3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */,
 				FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */,
 				6C2D616C907364813440EBEF /* DatabaseService.swift in Sources */,
+				86D870422239553BB7BD9B6C /* ExportView.swift in Sources */,
 				835D5065784B3FBF8308F26D /* HealthDetailView.swift in Sources */,
 				8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */,
 				7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */,

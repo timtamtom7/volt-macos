@@ -157,6 +157,7 @@ struct HealthSectionView: View {
 struct SettingsTabView: View {
     @ObservedObject var voltStore: VoltStore
     @State private var showingExportSheet = false
+    @State private var showingExportView = false
 
     var body: some View {
         ScrollView {
@@ -200,19 +201,16 @@ struct SettingsTabView: View {
                 // Export section
                 settingsSection(title: "DATA") {
                     VStack(spacing: 8) {
-                        Button(action: exportSessions) {
+                        Button(action: { showingExportView = true }) {
                             HStack {
                                 Image(systemName: "square.and.arrow.up")
-                                Text("Export Sessions as CSV")
+                                Text("Export Data...")
+                                Spacer()
                             }
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(Theme.primaryBlue)
                         }
                         .buttonStyle(.plain)
-
-                        Text("Export your charging history for analysis")
-                            .font(.system(size: 10))
-                            .foregroundColor(Theme.textSecondary)
                     }
                 }
 
@@ -231,6 +229,10 @@ struct SettingsTabView: View {
             .padding(16)
         }
         .background(Theme.background)
+        .sheet(isPresented: $showingExportView) {
+            ExportView(isPresented: $showingExportView)
+                .environmentObject(voltStore)
+        }
     }
 
     private func settingsSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
