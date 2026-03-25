@@ -1,0 +1,384 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F6BB5A09715D1703047A60C /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A12E4815593065399F45DF /* SettingsStore.swift */; };
+		1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */; };
+		43F11E36553F2BC0A63F92DA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C59E4DEBE94D9E6B345ADA /* main.swift */; };
+		800ADCCB554A6569B9536C22 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D24C4003BDB32E42566C5FDA /* SQLite */; };
+		CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBF295006A2659DC1F6505 /* Theme.swift */; };
+		DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FF995C8A9191EEE7C845E /* VoltApp.swift */; };
+		F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */; };
+		FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		02EA057757AA3CB604EABD82 /* Volt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Volt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CFBF295006A2659DC1F6505 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		66C59E4DEBE94D9E6B345ADA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryService.swift; sourceTree = "<group>"; };
+		C1A12E4815593065399F45DF /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
+		D87FF995C8A9191EEE7C845E /* VoltApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltApp.swift; sourceTree = "<group>"; };
+		DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5FEACCDDAA3837E7F643C18E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				800ADCCB554A6569B9536C22 /* SQLite in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0ED8BC7DDE2F4670CE36F473 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0CFBF295006A2659DC1F6505 /* Theme.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		22033DA7E10047D1D6EB1DB4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */,
+				C1A12E4815593065399F45DF /* SettingsStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		70637E6EEECF2A8252FC39C3 /* Volt */ = {
+			isa = PBXGroup;
+			children = (
+				8698A268159ADC91A078636A /* App */,
+				78938E0C3D2E830A5E335DF2 /* Models */,
+				22033DA7E10047D1D6EB1DB4 /* Services */,
+				0ED8BC7DDE2F4670CE36F473 /* Utilities */,
+				A4871753CCA84A2B94AE81F1 /* Views */,
+			);
+			path = Volt;
+			sourceTree = "<group>";
+		};
+		78938E0C3D2E830A5E335DF2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8698A268159ADC91A078636A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				66C59E4DEBE94D9E6B345ADA /* main.swift */,
+				D87FF995C8A9191EEE7C845E /* VoltApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A4871753CCA84A2B94AE81F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DAA56F2CC96EE40D7384E421 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				02EA057757AA3CB604EABD82 /* Volt.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FF0E9A7FCF8F023183BACADB = {
+			isa = PBXGroup;
+			children = (
+				70637E6EEECF2A8252FC39C3 /* Volt */,
+				DAA56F2CC96EE40D7384E421 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0B770F3F363A8C6FD113088A /* Volt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D1719E90F02DE1EBA79A270 /* Build configuration list for PBXNativeTarget "Volt" */;
+			buildPhases = (
+				089057026AABCC910E763E35 /* Sources */,
+				5FEACCDDAA3837E7F643C18E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Volt;
+			packageProductDependencies = (
+				D24C4003BDB32E42566C5FDA /* SQLite */,
+			);
+			productName = Volt;
+			productReference = 02EA057757AA3CB604EABD82 /* Volt.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C5FE38D5A1B7E8204D69412A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					0B770F3F363A8C6FD113088A = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 189DAE77DD1D52F5BCE176B9 /* Build configuration list for PBXProject "Volt" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = FF0E9A7FCF8F023183BACADB;
+			packageReferences = (
+				20A9E77CDD877FF1A8D6BA21 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0B770F3F363A8C6FD113088A /* Volt */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		089057026AABCC910E763E35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */,
+				1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */,
+				FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */,
+				0F6BB5A09715D1703047A60C /* SettingsStore.swift in Sources */,
+				CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */,
+				DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */,
+				43F11E36553F2BC0A63F92DA /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		446FA9C65060DCD6F2A3915C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A8394C931E939205C3763019 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Volt.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.volt.app;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		AE2BDA6036E4B085141C6090 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		C548FCDAA7715E87CBD0AF52 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Volt.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.volt.app;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		189DAE77DD1D52F5BCE176B9 /* Build configuration list for PBXProject "Volt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE2BDA6036E4B085141C6090 /* Debug */,
+				446FA9C65060DCD6F2A3915C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6D1719E90F02DE1EBA79A270 /* Build configuration list for PBXNativeTarget "Volt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8394C931E939205C3763019 /* Debug */,
+				C548FCDAA7715E87CBD0AF52 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		20A9E77CDD877FF1A8D6BA21 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D24C4003BDB32E42566C5FDA /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20A9E77CDD877FF1A8D6BA21 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = C5FE38D5A1B7E8204D69412A /* Project object */;
+}
