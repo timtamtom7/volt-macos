@@ -106,6 +106,9 @@ final class VoltStore: ObservableObject {
         // R2: Check notification conditions
         checkNotificationConditions(info: info)
 
+        // R6: Take health snapshot if needed
+        HealthTrackingService.shared.takeSnapshotIfNeeded(from: info)
+
         currentCharge = info
         isLoading = false
     }

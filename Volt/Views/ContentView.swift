@@ -44,6 +44,7 @@ struct ContentView: View {
 
 struct BatteryTabView: View {
     @ObservedObject var voltStore: VoltStore
+    @State private var showHealthDetail = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -75,6 +76,9 @@ struct BatteryTabView: View {
                 LimitSection(voltStore: voltStore)
                     .padding(.horizontal, 16)
 
+                HealthSectionView(voltStore: voltStore)
+                    .padding(.horizontal, 16)
+
                 // Note
                 HStack(spacing: 4) {
                     Image(systemName: "info.circle")
@@ -88,6 +92,63 @@ struct BatteryTabView: View {
             }
         }
         .background(Theme.background)
+        .sheet(isPresented: $showHealthDetail) {
+            HealthDetailView(isPresented: $showHealthDetail)
+                .environmentObject(voltStore)
+        }
+    }
+}
+
+// MARK: - Health Section View
+
+struct HealthSectionView: View {
+    @ObservedObject var voltStore: VoltStore
+    @State private var showHealthDetail = false
+
+    var body: some View {
+        let info = voltStore.currentCharge
+        return VStack(spacing: 8) {
+            HStack {
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 12))
+                    .foregroundColor(healthColor(for: info.healthPercent))
+                Text("Battery Health")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(Theme.textPrimary)
+                Spacer()
+                Button(action: { showHealthDetail = true }) {
+                    Text("Details")
+                        .font(.system(size: 11))
+                        .foregroundColor(Theme.primaryBlue)
+                }
+                .buttonStyle(.plain)
+            }
+
+            HStack {
+                Text(info.healthDescription)
+                    .font(.system(size: 11))
+                    .foregroundColor(healthColor(for: info.healthPercent))
+                Spacer()
+                Text("\(info.healthPercent)%")
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(Theme.textSecondary)
+            }
+        }
+        .padding(12)
+        .background(Theme.secondaryBg)
+        .cornerRadius(6)
+        .sheet(isPresented: $showHealthDetail) {
+            HealthDetailView(isPresented: $showHealthDetail)
+                .environmentObject(voltStore)
+        }
+    }
+
+    private func healthColor(for percent: Int) -> Color {
+        switch percent {
+        case 80...: return Theme.accentGreen
+        case 60..<80: return Theme.accentOrange
+        default: return Theme.accentRed
+        }
     }
 }
 

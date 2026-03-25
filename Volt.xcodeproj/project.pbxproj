@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B9626D738F2A216A1290AE0 /* BatteryHealthRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */; };
 		0D0FDB259A538C122D151F8D /* ShortcutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */; };
 		1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */; };
 		3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */; };
@@ -17,6 +18,8 @@
 		7D6A465A3FDB194E2F0E3680 /* StatsHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */; };
 		7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */; };
 		800ADCCB554A6569B9536C22 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D24C4003BDB32E42566C5FDA /* SQLite */; };
+		835D5065784B3FBF8308F26D /* HealthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */; };
+		8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */; };
 		B13D256B3BA78E570BAB95DC /* iCloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */; };
 		CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBF295006A2659DC1F6505 /* Theme.swift */; };
 		DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FF995C8A9191EEE7C845E /* VoltApp.swift */; };
@@ -31,7 +34,9 @@
 		1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsHistoryView.swift; sourceTree = "<group>"; };
 		35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsManager.swift; sourceTree = "<group>"; };
 		4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailView.swift; sourceTree = "<group>"; };
 		66C59E4DEBE94D9E6B345ADA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthRecord.swift; sourceTree = "<group>"; };
 		8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudSyncManager.swift; sourceTree = "<group>"; };
 		B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSession.swift; sourceTree = "<group>"; };
 		B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryService.swift; sourceTree = "<group>"; };
@@ -39,6 +44,7 @@
 		D87FF995C8A9191EEE7C845E /* VoltApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltApp.swift; sourceTree = "<group>"; };
 		DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E08E05276FCB3C698544114D /* ChargingScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingScheduleView.swift; sourceTree = "<group>"; };
+		F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTrackingService.swift; sourceTree = "<group>"; };
 		FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +73,7 @@
 			children = (
 				B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */,
 				FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */,
+				F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */,
 				8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */,
 				4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */,
 				35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */,
@@ -90,6 +97,7 @@
 		78938E0C3D2E830A5E335DF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */,
 				CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */,
 				B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */,
 			);
@@ -110,6 +118,7 @@
 			children = (
 				E08E05276FCB3C698544114D /* ChargingScheduleView.swift */,
 				DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */,
+				584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */,
 				1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */,
 			);
 			path = Views;
@@ -193,12 +202,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B9626D738F2A216A1290AE0 /* BatteryHealthRecord.swift in Sources */,
 				F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */,
 				1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */,
 				69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */,
 				3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */,
 				FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */,
 				6C2D616C907364813440EBEF /* DatabaseService.swift in Sources */,
+				835D5065784B3FBF8308F26D /* HealthDetailView.swift in Sources */,
+				8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */,
 				7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */,
 				0D0FDB259A538C122D151F8D /* ShortcutsManager.swift in Sources */,
 				7D6A465A3FDB194E2F0E3680 /* StatsHistoryView.swift in Sources */,
