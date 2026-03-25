@@ -24,11 +24,29 @@ struct ContentView: View {
                 }
                 .tag(2)
 
+            FleetDashboardView()
+                .tabItem {
+                    Label("Fleet", systemImage: "server.rack")
+                }
+                .tag(3)
+
+            EnterpriseView()
+                .tabItem {
+                    Label("Enterprise", systemImage: "building.2.fill")
+                }
+                .tag(4)
+
+            VoltAPIView()
+                .tabItem {
+                    Label("API", systemImage: "network")
+                }
+                .tag(5)
+
             SettingsTabView(voltStore: voltStore)
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
-                .tag(3)
+                .tag(6)
         }
         .frame(width: 380, height: 420)
         .onAppear {
