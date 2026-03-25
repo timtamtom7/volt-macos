@@ -1,15 +1,64 @@
 import SwiftUI
 
 enum Theme {
-    static let primaryBlue   = Color(hex: "007AFF")
-    static let accentGreen   = Color(hex: "34C759")
-    static let accentOrange  = Color(hex: "FF9500")
-    static let accentRed     = Color(hex: "FF3B30")
-    static let background    = Color(nsColor: .windowBackgroundColor)
-    static let secondaryBg   = Color(nsColor: .controlBackgroundColor)
-    static let textPrimary   = Color(nsColor: .labelColor)
-    static let textSecondary = Color(nsColor: .secondaryLabelColor)
+    // MARK: - Colors
+
+    /// Dark charcoal background
+    static let background = Color(hex: "1E1E2E")
+
+    /// Card/panel surfaces
+    static let surface = Color(hex: "2A2A3E")
+
+    /// Elevated surfaces
+    static let surfaceLight = Color(hex: "363650")
+
+    /// Battery health / charged state
+    static let primaryGreen = Color(hex: "34C759")
+
+    /// Charging / active energy / lightning bolt
+    static let accentCyan = Color(hex: "00D4FF")
+
+    /// Degrading health / recommendations
+    static let warning = Color(hex: "FF9500")
+
+    /// Critical health / issues
+    static let danger = Color(hex: "FF3B30")
+
+    /// Main text on dark backgrounds
+    static let textPrimary = Color.white
+
+    /// Secondary labels
+    static let textSecondary = Color(hex: "8E8E93")
+
+    // MARK: - Spacing
+
+    static let spacingXS: CGFloat = 4
+    static let spacingSM: CGFloat = 8
+    static let spacingMD: CGFloat = 12
+    static let spacingLG: CGFloat = 16
+    static let spacingXL: CGFloat = 24
+
+    // MARK: - Corner Radius
+
+    static let cornerRadiusSM: CGFloat = 4
+    static let cornerRadiusMD: CGFloat = 8
+    static let cornerRadiusLG: CGFloat = 12
+
+    // MARK: - Battery Health Color
+
+    /// Returns the appropriate color for a given battery health percentage
+    static func healthColor(for percentage: Double) -> Color {
+        if percentage >= 0.8 {
+            return primaryGreen
+        } else if percentage >= 0.5 {
+            return warning
+        } else {
+            return danger
+        }
+    }
 }
+
+// MARK: - Color Extension
 
 extension Color {
     init(hex: String) {
