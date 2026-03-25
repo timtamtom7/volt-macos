@@ -45,6 +45,7 @@ struct ContentView: View {
 struct BatteryTabView: View {
     @ObservedObject var voltStore: VoltStore
     @State private var showHealthDetail = false
+    @State private var showWidgetSheet = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -53,9 +54,17 @@ struct BatteryTabView: View {
                 Text("Volt")
                     .font(.system(size: 16, weight: .semibold))
                 Spacer()
-                Text("Battery")
-                    .font(.system(size: 11))
-                    .foregroundColor(Theme.textSecondary)
+                HStack(spacing: 12) {
+                    Button(action: { showWidgetSheet = true }) {
+                        Image(systemName: "square.grid.2x2")
+                            .font(.system(size: 12))
+                            .foregroundColor(Theme.primaryBlue)
+                    }
+                    .buttonStyle(.plain)
+                    Text("Battery")
+                        .font(.system(size: 11))
+                        .foregroundColor(Theme.textSecondary)
+                }
             }
             .padding(.horizontal, 16)
             .padding(.top, 12)
@@ -94,6 +103,10 @@ struct BatteryTabView: View {
         .background(Theme.background)
         .sheet(isPresented: $showHealthDetail) {
             HealthDetailView(isPresented: $showHealthDetail)
+                .environmentObject(voltStore)
+        }
+        .sheet(isPresented: $showWidgetSheet) {
+            WidgetView(isPresented: $showWidgetSheet)
                 .environmentObject(voltStore)
         }
     }

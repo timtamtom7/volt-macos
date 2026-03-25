@@ -13,6 +13,7 @@
 		3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */; };
 		43F11E36553F2BC0A63F92DA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C59E4DEBE94D9E6B345ADA /* main.swift */; };
 		48AA5A0B986751C0EC2EF9F8 /* VoltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */; };
+		4DF4B0B81773D0F8E24ECB35 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA6408B205E3851FE72FB56 /* WidgetView.swift */; };
 		69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08E05276FCB3C698544114D /* ChargingScheduleView.swift */; };
 		6C2D616C907364813440EBEF /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */; };
 		7D6A465A3FDB194E2F0E3680 /* StatsHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */; };
@@ -37,6 +38,7 @@
 		35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsManager.swift; sourceTree = "<group>"; };
 		4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailView.swift; sourceTree = "<group>"; };
+		5AA6408B205E3851FE72FB56 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		66C59E4DEBE94D9E6B345ADA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthRecord.swift; sourceTree = "<group>"; };
 		8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudSyncManager.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				FF6AD66F34B64598E3B23F4D /* ExportView.swift */,
 				584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */,
 				1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */,
+				5AA6408B205E3851FE72FB56 /* WidgetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */,
 				DEE07EB11EB2B716BBBD8B20 /* VoltApp.swift in Sources */,
 				48AA5A0B986751C0EC2EF9F8 /* VoltStore.swift in Sources */,
+				4DF4B0B81773D0F8E24ECB35 /* WidgetView.swift in Sources */,
 				B13D256B3BA78E570BAB95DC /* iCloudSyncManager.swift in Sources */,
 				43F11E36553F2BC0A63F92DA /* main.swift in Sources */,
 			);
