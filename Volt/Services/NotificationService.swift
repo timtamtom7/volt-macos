@@ -16,6 +16,7 @@ final class VoltNotificationService {
             if let error = error {
                 print("Volt notification auth error: \(error)")
             }
+            // R20 audit: always invoke completion, even on error, so callers don't hang
             DispatchQueue.main.async {
                 completion(granted)
             }

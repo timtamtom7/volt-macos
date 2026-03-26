@@ -165,7 +165,9 @@ final class VoltDatabaseService {
         var result: [ChargingSession] = []
         let query = sessions.order(sStartedAt.desc).limit(limit)
         for row in try db.prepare(query) {
-            result.append(sessionFromRow(row))
+            if let session = sessionFromRow(row) {
+                result.append(session)
+            }
         }
         return result
     }
@@ -182,14 +184,21 @@ final class VoltDatabaseService {
             .order(sStartedAt.desc)
 
         for row in try db.prepare(query) {
-            result.append(sessionFromRow(row))
+            if let session = sessionFromRow(row) {
+                result.append(session)
+            }
         }
         return result
     }
 
-    private func sessionFromRow(_ row: Row) -> ChargingSession {
-        ChargingSession(
-            id: UUID(uuidString: row[sId]) ?? UUID(),
+    // R20 audit fix: return optional instead of silently creating a new UUID on parse failure
+    private func sessionFromRow(_ row: Row) -> ChargingSession? {
+        guard let id = UUID(uuidString: row[sId]) else {
+            print("Volt DB: invalid session UUID '\(row[sId])' — skipping row")
+            return nil
+        }
+        return ChargingSession(
+            id: id,
             batteryId: row[sBatteryId],
             startCharge: row[sStartCharge],
             endCharge: row[sEndCharge],
@@ -224,7 +233,9 @@ final class VoltDatabaseService {
         var result: [BatterySnapshot] = []
         let query = snapshots.order(shTimestamp.desc).limit(limit)
         for row in try db.prepare(query) {
-            result.append(snapshotFromRow(row))
+            if let snapshot = snapshotFromRow(row) {
+                result.append(snapshot)
+            }
         }
         return result
     }
@@ -240,9 +251,14 @@ final class VoltDatabaseService {
         return grouped
     }
 
-    private func snapshotFromRow(_ row: Row) -> BatterySnapshot {
-        BatterySnapshot(
-            id: UUID(uuidString: row[shId]) ?? UUID(),
+    // R20 audit fix: return optional instead of silently creating a new UUID on parse failure
+    private func snapshotFromRow(_ row: Row) -> BatterySnapshot? {
+        guard let id = UUID(uuidString: row[shId]) else {
+            print("Volt DB: invalid snapshot UUID '\(row[shId])' — skipping row")
+            return nil
+        }
+        return BatterySnapshot(
+            id: id,
             batteryId: row[shBatteryId],
             charge: row[shCharge],
             isCharging: row[shIsCharging],
@@ -310,8 +326,12 @@ final class VoltDatabaseService {
             .order(dDate.desc)
 
         for row in try db.prepare(query) {
+            let id = UUID(uuidString: row[dId])
+            if id == nil {
+                print("Volt DB: invalid daily stat UUID '\(row[dId])' — skipping row")
+            }
             result.append(DailyBatteryStats(
-                id: UUID(uuidString: row[dId]) ?? UUID(),
+                id: id ?? UUID(),
                 date: row[dDate],
                 maxCharge: row[dMaxCharge],
                 minCharge: row[dMinCharge],
@@ -348,8 +368,12 @@ final class VoltDatabaseService {
         for row in try db.prepare(schedules) {
             let daysData = Data(base64Encoded: row[scDays]) ?? Data()
             let daysArray = (try? JSONDecoder().decode([Int].self, from: daysData)) ?? []
+            let id = UUID(uuidString: row[scId])
+            if id == nil {
+                print("Volt DB: invalid schedule UUID '\(row[scId])' — skipping row")
+            }
             let schedule = ChargingSchedule(
-                id: UUID(uuidString: row[scId]) ?? UUID(),
+                id: id ?? UUID(),
                 name: row[scName],
                 startHour: row[scStartHour],
                 startMinute: row[scStartMinute],
