@@ -6,17 +6,12 @@ struct StatsHistoryView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                // Battery health overview
+            VStack(spacing: Theme.spacing16) {
                 healthOverview
-
-                // Recent sessions
                 sessionsSection
-
-                // Charge history
                 historySection
             }
-            .padding(16)
+            .padding(Theme.spacing16)
         }
         .background(Theme.background)
         .sheet(isPresented: $showHeatmap) {
@@ -25,28 +20,26 @@ struct StatsHistoryView: View {
         }
     }
 
-    // MARK: - Health Overview
-
     private var healthOverview: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: Theme.spacing12) {
             HStack {
                 Text("Battery Health")
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { showHeatmap = true }) {
-                    HStack(spacing: 4) {
+                    HStack(spacing: Theme.spacing4) {
                         Image(systemName: "calendar")
-                            .font(.system(size: 10))
+                            .font(.system(size: Theme.fontSizeCaption2))
                         Text("Heatmap")
-                            .font(.system(size: 11))
+                            .font(.system(size: Theme.fontSizeCaption))
                     }
                     .foregroundColor(Theme.primaryBlue)
                 }
                 .buttonStyle(.plain)
             }
 
-            HStack(spacing: 16) {
+            HStack(spacing: Theme.spacing16) {
                 healthGauge(
                     value: voltStore.currentCharge.healthPercent,
                     title: "Health",
@@ -66,23 +59,22 @@ struct StatsHistoryView: View {
                 )
             }
 
-            // Health bar
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: Theme.spacing4) {
                 HStack {
                     Text("Design Capacity")
-                        .font(.system(size: 10))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                     Spacer()
                     Text("\(voltStore.currentCharge.maxCapacity) / \(voltStore.currentCharge.designCapacity) mAh")
-                        .font(.system(size: 10, weight: .medium))
+                        .font(.system(size: Theme.fontSizeCaption2, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                 }
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 4)
+                        RoundedRectangle(cornerRadius: Theme.cornerRadiusSM)
                             .fill(Theme.secondaryBg)
                             .frame(height: 8)
-                        RoundedRectangle(cornerRadius: 4)
+                        RoundedRectangle(cornerRadius: Theme.cornerRadiusSM)
                             .fill(healthColor)
                             .frame(width: geo.size.width * healthRatio, height: 8)
                     }
@@ -90,18 +82,18 @@ struct StatsHistoryView: View {
                 .frame(height: 8)
             }
         }
-        .padding(12)
+        .padding(Theme.spacing12)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusMD)
     }
 
     private func healthGauge(value: Int, title: String, color: Color, isCount: Bool = false) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: Theme.spacing4) {
             Text(isCount ? "\(value)" : "\(value)%")
                 .font(.system(size: isCount ? 22 : 28, weight: .bold, design: .rounded))
                 .foregroundColor(color)
             Text(title)
-                .font(.system(size: 10))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
         }
         .frame(maxWidth: .infinity)
@@ -126,13 +118,11 @@ struct StatsHistoryView: View {
         return Theme.accentRed
     }
 
-    // MARK: - Sessions Section
-
     private var sessionsSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: Theme.spacing8) {
             HStack {
                 Text("Recent Charge Sessions")
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
             }
@@ -141,35 +131,33 @@ struct StatsHistoryView: View {
             if sessions.isEmpty {
                 HStack {
                     Spacer()
-                    VStack(spacing: 4) {
+                    VStack(spacing: Theme.spacing4) {
                         Image(systemName: "bolt.circle")
                             .font(.system(size: 20))
                             .foregroundColor(Theme.textSecondary)
                         Text("No sessions recorded yet")
-                            .font(.system(size: 11))
+                            .font(.system(size: Theme.fontSizeCaption))
                             .foregroundColor(Theme.textSecondary)
                     }
                     Spacer()
                 }
-                .padding(.vertical, 16)
+                .padding(.vertical, Theme.spacing16)
             } else {
                 ForEach(sessions.prefix(5)) { session in
                     SessionRowView(session: session)
                 }
             }
         }
-        .padding(12)
+        .padding(Theme.spacing12)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusMD)
     }
 
-    // MARK: - History Section
-
     private var historySection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: Theme.spacing8) {
             HStack {
                 Text("7-Day Charge History")
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
             }
@@ -178,60 +166,59 @@ struct StatsHistoryView: View {
                 HStack {
                     Spacer()
                     Text("Not enough data yet")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                     Spacer()
                 }
-                .padding(.vertical, 12)
+                .padding(.vertical, Theme.spacing12)
             } else {
                 weeklyChart
             }
         }
-        .padding(12)
+        .padding(Theme.spacing12)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusMD)
     }
 
     private var weeklyChart: some View {
-        VStack(spacing: 8) {
-            // Simple bar chart
-            HStack(alignment: .bottom, spacing: 4) {
+        VStack(spacing: Theme.spacing8) {
+            HStack(alignment: .bottom, spacing: Theme.spacing4) {
                 ForEach(voltStore.weeklyHistory, id: \.date) { day in
                     VStack(spacing: 2) {
                         ZStack(alignment: .bottom) {
-                            RoundedRectangle(cornerRadius: 3)
+                            RoundedRectangle(cornerRadius: Theme.cornerRadiusSM)
                                 .fill(Theme.accentGreen.opacity(0.8))
                                 .frame(width: 28, height: CGFloat(day.maxCharge) * 1.2)
 
-                            RoundedRectangle(cornerRadius: 3)
+                            RoundedRectangle(cornerRadius: Theme.cornerRadiusSM)
                                 .fill(Theme.primaryBlue)
                                 .frame(width: 28, height: CGFloat(day.minCharge) * 1.2)
                         }
                         .frame(height: 60)
 
                         Text(dayLabel(day.date))
-                            .font(.system(size: 9))
+                            .font(.system(size: Theme.fontSizeCaption2))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
             }
 
             HStack {
-                HStack(spacing: 2) {
+                HStack(spacing: Theme.spacing2) {
                     RoundedRectangle(cornerRadius: 2)
                         .fill(Theme.accentGreen.opacity(0.8))
                         .frame(width: 10, height: 10)
                     Text("Max")
-                        .font(.system(size: 9))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                 }
                 Spacer()
-                HStack(spacing: 2) {
+                HStack(spacing: Theme.spacing2) {
                     RoundedRectangle(cornerRadius: 2)
                         .fill(Theme.primaryBlue)
                         .frame(width: 10, height: 10)
                     Text("Min")
-                        .font(.system(size: 9))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
@@ -245,53 +232,46 @@ struct StatsHistoryView: View {
     }
 }
 
-// MARK: - Session Row View
-
 struct SessionRowView: View {
     let session: ChargingSession
 
     var body: some View {
-        HStack(spacing: 8) {
-            // Start charge
+        HStack(spacing: Theme.spacing8) {
             Text("\(session.startCharge)%")
-                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .font(.system(size: Theme.fontSizeSubheadline, weight: .medium, design: .rounded))
                 .foregroundColor(Theme.textPrimary)
                 .frame(width: 36, alignment: .leading)
 
-            // Arrow
             Image(systemName: "arrow.right")
                 .font(.system(size: 9))
                 .foregroundColor(Theme.textSecondary)
 
-            // End charge
             if let endCharge = session.endCharge {
                 Text("\(endCharge)%")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium, design: .rounded))
                     .foregroundColor(Theme.accentGreen)
                     .frame(width: 36, alignment: .leading)
             } else {
                 Text("In progress")
-                    .font(.system(size: 11))
+                    .font(.system(size: Theme.fontSizeCaption))
                     .foregroundColor(Theme.accentOrange)
             }
 
             Spacer()
 
-            // Duration
             Text(session.durationString)
-                .font(.system(size: 11))
+                .font(.system(size: Theme.fontSizeCaption))
                 .foregroundColor(Theme.textSecondary)
 
-            // Date
             Text(formattedDate)
-                .font(.system(size: 10))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
                 .frame(width: 50, alignment: .trailing)
         }
-        .padding(.vertical, 6)
-        .padding(.horizontal, 8)
+        .padding(.vertical, Theme.spacingSM)
+        .padding(.horizontal, Theme.spacing8)
         .background(Color.black.opacity(0.03))
-        .cornerRadius(6)
+        .cornerRadius(Theme.cornerRadiusSM)
     }
 
     private var formattedDate: String {

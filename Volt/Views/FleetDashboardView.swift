@@ -1,7 +1,5 @@
 import SwiftUI
 
-// MARK: - Fleet Dashboard View
-
 struct FleetDashboardView: View {
     @StateObject private var fleetService = TeamFleetService.shared
     @State private var showCreateFleet = false
@@ -19,54 +17,46 @@ struct FleetDashboardView: View {
         }
     }
 
-    // MARK: - No Fleet View
-
     private var noFleetView: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: Theme.spacing24) {
             Image(systemName: "server.rack")
-                .font(.system(size: 64))
-                .foregroundColor(.secondary)
+                .font(.system(size: 64, weight: .light))
+                .foregroundColor(Theme.textSecondary)
 
             Text("Team Fleet Management")
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.system(size: Theme.fontSizeTitle2, weight: .bold))
 
             Text("Share power profiles with your team, monitor fleet battery health, and manage power policies across organization.")
                 .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
+                .foregroundColor(Theme.textSecondary)
                 .frame(maxWidth: 400)
 
-            HStack(spacing: 16) {
+            HStack(spacing: Theme.spacing16) {
                 Button("Create Fleet") {
                     showCreateFleet = true
                 }
                 .buttonStyle(.borderedProminent)
 
                 Button("Join Fleet") {
-                    // Show join dialog
                 }
                 .buttonStyle(.bordered)
             }
         }
-        .padding()
+        .padding(Theme.spacing16)
         .sheet(isPresented: $showCreateFleet) {
             createFleetSheet
         }
     }
 
-    // MARK: - Fleet Content
-
     private func fleetContent(_ fleet: TeamFleet) -> some View {
         ScrollView {
-            VStack(spacing: 24) {
-                // Header
+            VStack(spacing: Theme.spacing24) {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(fleet.name)
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.system(size: Theme.fontSizeTitle2, weight: .bold))
                         Text("\(fleet.deviceCount) devices")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Theme.textSecondary)
                     }
 
                     Spacer()
@@ -74,32 +64,25 @@ struct FleetDashboardView: View {
                     Button("Leave Fleet") {
                         fleetService.leaveFleet()
                     }
-                    .foregroundColor(.red)
+                    .foregroundColor(Theme.danger)
                 }
-                .padding()
+                .padding(Theme.spacing16)
 
-                // Fleet Summary
                 fleetSummarySection
-
-                // Devices
                 devicesSection
-
-                // Power Profiles
                 profilesSection
             }
         }
     }
 
-    // MARK: - Fleet Summary
-
     private var fleetSummarySection: some View {
         let summary = fleetService.getFleetSummary()
 
-        return VStack(alignment: .leading, spacing: 12) {
+        return VStack(alignment: .leading, spacing: Theme.spacing12) {
             Text("Fleet Overview")
-                .font(.headline)
+                .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
-            HStack(spacing: 20) {
+            HStack(spacing: Theme.spacing20) {
                 summaryCard("Devices", value: "\(summary.totalDevices)", icon: "laptopcomputer")
                 summaryCard("Avg Health", value: "\(summary.averageHealth)%", icon: "battery.100")
                 summaryCard("Need Service", value: "\(summary.devicesNeedingService)", icon: "exclamationmark.triangle")
@@ -108,8 +91,8 @@ struct FleetDashboardView: View {
 
             HStack {
                 Text("Fleet Health: \(summary.healthStatus)")
-                    .font(.subheadline)
-                    .foregroundColor(summary.averageHealth >= 80 ? .green : .orange)
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
+                    .foregroundColor(summary.averageHealth >= 80 ? Theme.accentGreen : Theme.accentOrange)
 
                 Spacer()
 
@@ -119,33 +102,30 @@ struct FleetDashboardView: View {
                 .buttonStyle(.bordered)
             }
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
     private func summaryCard(_ title: String, value: String, icon: String) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: Theme.spacing4) {
             Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(.accentColor)
+                .font(.system(size: Theme.fontSizeTitle3, weight: .medium))
+                .foregroundColor(Theme.primaryBlue)
             Text(value)
-                .font(.title3)
-                .fontWeight(.bold)
+                .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
             Text(title)
-                .font(.caption)
-                .foregroundColor(.secondary)
+                .font(.system(size: Theme.fontSizeCaption, weight: .regular))
+                .foregroundColor(Theme.textSecondary)
         }
         .frame(maxWidth: .infinity)
     }
 
-    // MARK: - Devices Section
-
     private var devicesSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.spacing12) {
             HStack {
                 Text("Devices")
-                    .font(.headline)
+                    .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                 Spacer()
 
@@ -159,7 +139,7 @@ struct FleetDashboardView: View {
 
             if fleetService.fleetDevices.isEmpty {
                 Text("No devices in fleet")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Theme.textSecondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
             } else {
@@ -168,51 +148,45 @@ struct FleetDashboardView: View {
                 }
             }
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
     private func deviceRow(_ device: FleetDevice) -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(device.deviceName)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                 Text(device.deviceModel)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(.system(size: Theme.fontSizeCaption, weight: .regular))
+                    .foregroundColor(Theme.textSecondary)
             }
 
             Spacer()
 
             VStack(alignment: .trailing) {
-                HStack(spacing: 4) {
+                HStack(spacing: Theme.spacing4) {
                     Image(systemName: healthIcon(device.batteryHealthPercent))
                         .foregroundColor(healthColor(device.batteryHealthPercent))
                     Text("\(device.batteryHealthPercent)%")
                         .fontWeight(.medium)
                 }
                 Text("Health")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
+                    .font(.system(size: Theme.fontSizeCaption2, weight: .regular))
+                    .foregroundColor(Theme.textSecondary)
             }
 
             VStack(alignment: .trailing) {
                 Text("\(device.cycleCount)")
                     .fontWeight(.medium)
                 Text("Cycles")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
+                    .font(.system(size: Theme.fontSizeCaption2, weight: .regular))
+                    .foregroundColor(Theme.textSecondary)
             }
             .frame(width: 60)
-
-            if device.isBelowThreshold {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(.orange)
-            }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, Theme.spacing4)
     }
 
     private func healthIcon(_ health: Int) -> String {
@@ -226,19 +200,17 @@ struct FleetDashboardView: View {
 
     private func healthColor(_ health: Int) -> Color {
         switch health {
-        case 80...: return .green
-        case 60..<80: return .orange
-        default: return .red
+        case 80...: return Theme.accentGreen
+        case 60..<80: return Theme.accentOrange
+        default: return Theme.danger
         }
     }
 
-    // MARK: - Profiles Section
-
     private var profilesSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.spacing12) {
             HStack {
                 Text("Power Profiles")
-                    .font(.headline)
+                    .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                 Spacer()
 
@@ -247,21 +219,18 @@ struct FleetDashboardView: View {
             }
 
             Text("Share and discover power profiles with your team")
-                .font(.caption)
-                .foregroundColor(.secondary)
+                .font(.system(size: Theme.fontSizeCaption, weight: .regular))
+                .foregroundColor(Theme.textSecondary)
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
-    // MARK: - Create Fleet Sheet
-
     private var createFleetSheet: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: Theme.spacing20) {
             Text("Create Fleet")
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
             TextField("Fleet Name", text: $fleetName)
                 .textFieldStyle(.roundedBorder)
@@ -283,11 +252,9 @@ struct FleetDashboardView: View {
                 .disabled(fleetName.isEmpty || adminEmail.isEmpty)
             }
         }
-        .padding(32)
+        .padding(Theme.spacing32)
         .frame(width: 350)
     }
-
-    // MARK: - Actions
 
     private func exportReport() {
         if let url = fleetService.exportFleetReportCSV() {

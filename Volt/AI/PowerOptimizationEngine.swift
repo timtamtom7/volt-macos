@@ -13,7 +13,7 @@ final class PowerOptimizationEngine {
         guard !sessions.isEmpty else { return 80 }
         
         // Analyze typical usage patterns
-        let avgChargeUsed = calculateAverageChargeUsed(sessions: sessions)
+        _ = calculateAverageChargeUsed(sessions: sessions)
         let maxChargeNeeded = calculateMaxChargeNeeded(sessions: sessions)
         
         // If user regularly uses more than 80%, suggest higher limit

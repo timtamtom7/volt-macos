@@ -23,6 +23,10 @@ public final class VoltSubscriptionManager: ObservableObject {
         Task { await loadProducts() }
     }
     
+    deinit {
+        updateListenerTask?.cancel()
+    }
+    
     public func loadProducts() async {
         isLoading = true
         do {

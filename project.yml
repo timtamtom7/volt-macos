@@ -39,3 +39,34 @@ targets:
         product: SQLite
     entitlements:
       path: Volt.entitlements
+
+  VoltWidget:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: VoltWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.volt.app.widget
+        INFOPLIST_FILE: VoltWidget/Info.plist
+        CODE_SIGN_ENTITLEMENTS: VoltWidget/VoltWidget.entitlements
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks"
+        SKIP_INSTALL: "YES"
+    entitlements:
+      path: VoltWidget/VoltWidget.entitlements
+
+  VoltTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: VoltTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.volt.app.tests
+        INFOPLIST_FILE: VoltTests/Info.plist
+        CODE_SIGN_ENTITLEMENTS: VoltTests/VoltTests.entitlements
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Volt.app/Contents/MacOS/Volt"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+    dependencies:
+      - target: Volt

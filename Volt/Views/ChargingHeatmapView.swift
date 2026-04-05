@@ -13,35 +13,29 @@ struct ChargingHeatmapView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("Charging Heatmap")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { isPresented = false }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .medium))
+                        .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(16)
+            .padding(Theme.spacing16)
 
             Divider()
 
             ScrollView {
-                VStack(spacing: 16) {
-                    // Year selector
+                VStack(spacing: Theme.spacing16) {
                     yearSelector
-
-                    // Month grid
                     monthGrid
-
-                    // Legend
                     legendView
                 }
-                .padding(16)
+                .padding(Theme.spacing16)
             }
         }
         .frame(width: 500, height: 520)
@@ -52,19 +46,19 @@ struct ChargingHeatmapView: View {
         HStack {
             Button(action: { selectedYear -= 1 }) {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .foregroundColor(Theme.accentCyan)
             }
             .buttonStyle(.plain)
 
             Text("\(selectedYear)")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
                 .frame(width: 60)
 
             Button(action: { if selectedYear < Calendar.current.component(.year, from: Date()) { selectedYear += 1 } }) {
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .foregroundColor(selectedYear < Calendar.current.component(.year, from: Date()) ? Theme.accentCyan : Theme.textSecondary)
             }
             .buttonStyle(.plain)
@@ -79,20 +73,17 @@ struct ChargingHeatmapView: View {
         let calendar = Calendar.current
         let currentYear = selectedYear
         let currentMonth = calendar.component(.month, from: Date())
-        let currentDay = calendar.component(.day, from: Date())
 
-        return VStack(spacing: 4) {
-            // Month labels
+        return VStack(spacing: Theme.spacing4) {
             HStack(spacing: 2) {
                 ForEach(months, id: \.self) { month in
                     Text(month)
-                        .font(.system(size: 9))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                         .frame(maxWidth: .infinity)
                 }
             }
 
-            // Day rows (weeks)
             ForEach(0..<5, id: \.self) { week in
                 HStack(spacing: 2) {
                     ForEach(1...12, id: \.self) { month in
@@ -111,15 +102,15 @@ struct ChargingHeatmapView: View {
                 }
             }
         }
-        .padding(12)
+        .padding(Theme.spacing12)
         .background(Theme.surface)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
     private var legendView: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: Theme.spacing16) {
             Text("Less")
-                .font(.system(size: 10))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
 
             HStack(spacing: 2) {
@@ -131,12 +122,12 @@ struct ChargingHeatmapView: View {
             }
 
             Text("More")
-                .font(.system(size: 10))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
 
             Spacer()
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Theme.spacing12)
     }
 
     private func chargingIntensity(for month: Int, week: Int) -> Int {
@@ -151,7 +142,6 @@ struct ChargingHeatmapView: View {
             return 0
         }
 
-        let dayOfWeek = calendar.component(.weekday, from: monthStart)
         let adjustedWeek = week
 
         var totalChargeTime = 0
@@ -178,7 +168,7 @@ struct ChargingHeatmapView: View {
         targetComponents.month = month
         targetComponents.day = day
 
-        guard let targetDate = calendar.date(from: targetComponents) else { return 0 }
+        guard calendar.date(from: targetComponents) != nil else { return 0 }
 
         var totalMinutes = 0
         for session in sessions {

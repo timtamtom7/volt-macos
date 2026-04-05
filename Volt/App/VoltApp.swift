@@ -68,8 +68,9 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
             let info = VoltState.shared.store.currentCharge
             let charge = info.charge
             let charging = info.isCharging
-            let symbol = charging ? "⚡" : ""
-            self.statusItem.button?.title = "\(symbol)\(charge)%"
+            let symbolName = charging ? "bolt.fill" : "bolt"
+            self.statusItem.button?.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: "Battery")
+            self.statusItem.button?.title = " \(charge)%"
         }
     }
 
@@ -127,11 +128,15 @@ struct GlanceView: View {
                     Text("\(charge)%")
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundColor(.primary)
+                        .accessibilityLabel("Battery charge \(charge) percent")
                     Text(statusText)
                         .font(.system(size: 10))
                         .foregroundColor(.secondary)
+                        .accessibilityLabel(statusText)
                 }
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Battery Status")
 
             HStack(spacing: 16) {
                 statTile(icon: "heart.fill", label: "Health", value: "\(health)%")
@@ -142,8 +147,10 @@ struct GlanceView: View {
             HStack {
                 Image(systemName: "bolt.fill")
                     .foregroundColor(.orange)
+                    .accessibilityLabel("Power profile")
                 Text(profileName)
                     .font(.system(size: 11, weight: .medium))
+                    .accessibilityLabel("Profile: \(profileName)")
                 Spacer()
             }
             .padding(.horizontal, 8)

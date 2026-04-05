@@ -57,13 +57,12 @@ final class TeamFleetService: ObservableObject {
     // MARK: - MDM
 
     func enrollMDM(organizationName: String, token: String, serverURL: String) -> Bool {
-        var config = MDMConfiguration(
+        let config = MDMConfiguration(
             organizationName: organizationName,
             enrollmentToken: token,
             serverURL: serverURL,
             isEnrolled: true
         )
-        // In production, validate token with server
         mdmConfiguration = config
         isMDMEnrolled = true
         saveMDMData()

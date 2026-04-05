@@ -6,26 +6,24 @@ struct ExportView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("Export Data")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { isPresented = false }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .medium))
+                        .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(16)
+            .padding(Theme.spacing16)
 
             Divider()
 
             ScrollView {
-                VStack(spacing: 16) {
-                    // Session Export
+                VStack(spacing: Theme.spacing16) {
                     exportSection(
                         title: "Charging Sessions",
                         description: "Export all charging session records with duration and charge data",
@@ -33,7 +31,6 @@ struct ExportView: View {
                         action: exportSessions
                     )
 
-                    // Stats Export
                     exportSection(
                         title: "Daily Statistics",
                         description: "Export daily battery statistics over time",
@@ -41,7 +38,6 @@ struct ExportView: View {
                         action: exportStats
                     )
 
-                    // Full Export
                     exportSection(
                         title: "Full Export (JSON)",
                         description: "Complete backup of all charging data",
@@ -49,7 +45,7 @@ struct ExportView: View {
                         action: exportFull
                     )
                 }
-                .padding(16)
+                .padding(Theme.spacing16)
             }
         }
         .frame(width: 400, height: 340)
@@ -58,7 +54,7 @@ struct ExportView: View {
 
     private func exportSection(title: String, description: String, icon: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            HStack(spacing: 12) {
+            HStack(spacing: Theme.spacing12) {
                 Image(systemName: icon)
                     .font(.system(size: 24))
                     .foregroundColor(Theme.primaryBlue)
@@ -66,10 +62,10 @@ struct ExportView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 13, weight: .medium))
+                        .font(.system(size: Theme.fontSizeBody, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                     Text(description)
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                         .multilineTextAlignment(.leading)
                 }
@@ -77,12 +73,12 @@ struct ExportView: View {
                 Spacer()
 
                 Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 12))
+                    .font(.system(size: Theme.fontSizeSubheadline))
                     .foregroundColor(Theme.textSecondary)
             }
-            .padding(12)
+            .padding(Theme.spacing12)
             .background(Theme.secondaryBg)
-            .cornerRadius(8)
+            .cornerRadius(Theme.cornerRadiusMD)
         }
         .buttonStyle(.plain)
     }

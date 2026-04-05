@@ -10,20 +10,19 @@ struct RecommendationsView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("Smart Recommendations")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { isPresented = false }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .medium))
+                        .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(16)
+            .padding(Theme.spacing16)
 
             Divider()
 
@@ -31,12 +30,12 @@ struct RecommendationsView: View {
                 emptyState
             } else {
                 ScrollView {
-                    VStack(spacing: 12) {
+                    VStack(spacing: Theme.spacing12) {
                         ForEach(recommendations) { rec in
                             recommendationCard(rec)
                         }
                     }
-                    .padding(16)
+                    .padding(Theme.spacing16)
                 }
             }
         }
@@ -45,17 +44,17 @@ struct RecommendationsView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: Theme.spacing12) {
             Image(systemName: "checkmark.seal.fill")
                 .font(.system(size: 40))
                 .foregroundColor(Theme.accentGreen)
 
             Text("Great charging habits!")
-                .font(.system(size: 14, weight: .semibold))
+                .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
 
             Text("Your charging patterns look optimal. Keep up the good work!")
-                .font(.system(size: 12))
+                .font(.system(size: Theme.fontSizeSubheadline))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: 260)
@@ -64,24 +63,24 @@ struct RecommendationsView: View {
     }
 
     private func recommendationCard(_ rec: ChargingRecommendation) -> some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: Theme.spacing12) {
             Image(systemName: rec.type.icon)
-                .font(.system(size: 16))
+                .font(.system(size: Theme.fontSizeTitle3))
                 .foregroundColor(rec.type.color)
                 .frame(width: 24)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: Theme.spacing4) {
                 Text(rec.title)
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
 
                 Text(rec.description)
-                    .font(.system(size: 12))
+                    .font(.system(size: Theme.fontSizeSubheadline))
                     .foregroundColor(Theme.textSecondary)
 
                 if let action = rec.actionText {
                     Text(action)
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.primaryBlue)
                         .padding(.top, 2)
                 }
@@ -89,11 +88,11 @@ struct RecommendationsView: View {
 
             Spacer()
         }
-        .padding(12)
+        .padding(Theme.spacing12)
         .background(rec.type.backgroundColor.opacity(0.1))
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusLG)
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: Theme.cornerRadiusLG)
                 .stroke(rec.type.borderColor, lineWidth: 1)
         )
     }
@@ -103,7 +102,6 @@ struct RecommendationsView: View {
         let sessions = voltStore.recentSessions
         let info = voltStore.currentCharge
 
-        // Check battery health
         if info.healthPercent < 80 {
             recommendations.append(ChargingRecommendation(
                 type: .warning,
@@ -113,10 +111,9 @@ struct RecommendationsView: View {
             ))
         }
 
-        // Check for overnight charging
         let overnightCharging = sessions.filter { session in
             guard let duration = session.duration else { return false }
-            return duration > 480 // More than 8 hours
+            return duration > 480
         }
         if overnightCharging.count > 3 {
             recommendations.append(ChargingRecommendation(
@@ -127,7 +124,6 @@ struct RecommendationsView: View {
             ))
         }
 
-        // Check for frequent top-ups
         let shortSessions = sessions.filter { session in
             guard let duration = session.duration else { return false }
             let chargeAdded = (session.endCharge ?? session.startCharge) - session.startCharge
@@ -142,7 +138,6 @@ struct RecommendationsView: View {
             ))
         }
 
-        // Check temperature
         if info.temperature > 35 {
             recommendations.append(ChargingRecommendation(
                 type: .warning,
@@ -152,7 +147,6 @@ struct RecommendationsView: View {
             ))
         }
 
-        // Check cycle count vs health
         if info.cycleCount > 200 && info.healthPercent > 85 {
             recommendations.append(ChargingRecommendation(
                 type: .success,
@@ -162,7 +156,6 @@ struct RecommendationsView: View {
             ))
         }
 
-        // Check if always at 100%
         let alwaysFull = sessions.filter { ($0.endCharge ?? 0) >= 95 }
         if alwaysFull.count > sessions.count / 2 && sessions.count > 5 {
             recommendations.append(ChargingRecommendation(
@@ -173,7 +166,6 @@ struct RecommendationsView: View {
             ))
         }
 
-        // Check for deep discharges
         let deepDischarges = sessions.filter { $0.startCharge < 20 }
         if deepDischarges.count > 2 {
             recommendations.append(ChargingRecommendation(

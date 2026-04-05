@@ -1,6 +1,31 @@
 import Foundation
 import IOKit
 
+// MARK: - Battery Service Errors
+
+enum BatteryServiceError: Error, CustomStringConvertible {
+    case connectionFailed
+    case smcReadFailed(key: String)
+    case invalidData(key: String)
+    case temperatureReadFailed
+    case capacityReadFailed
+
+    var description: String {
+        switch self {
+        case .connectionFailed:
+            return "Volt: Failed to connect to AppleSMC"
+        case .smcReadFailed(let key):
+            return "Volt: SMC read failed for key '\(key)'"
+        case .invalidData(let key):
+            return "Volt: Invalid data format for key '\(key)'"
+        case .temperatureReadFailed:
+            return "Volt: Failed to read battery temperature"
+        case .capacityReadFailed:
+            return "Volt: Failed to read battery capacity"
+        }
+    }
+}
+
 // MARK: - SMC Keys
 
 private let SMC_KEY_BATTERY_INFO     = "BATP"
@@ -98,9 +123,15 @@ final class BatteryService {
     // MARK: - Public API
 
     func readBatteryInfo() -> BatteryInfo {
-        guard connection != 0 else { return .empty }
+        guard connection != 0 else {
+            print(BatteryServiceError.connectionFailed.description)
+            return .empty
+        }
 
-        let charge = readInt(key: SMC_KEY_CURRENT_CHARGE, size: 2) ?? -1
+        guard let charge = readInt(key: SMC_KEY_CURRENT_CHARGE, size: 2) else {
+            print(BatteryServiceError.smcReadFailed(key: SMC_KEY_CURRENT_CHARGE).description)
+            return .empty
+        }
         let maxCap = readInt(key: SMC_KEY_MAX_CAPACITY, size: 2) ?? 0
         let designCap = readInt(key: SMC_KEY_DESIGN_CAPACITY, size: 2) ?? 0
         let cycleCount = readInt(key: SMC_KEY_CYCLE_COUNT, size: 2) ?? 0

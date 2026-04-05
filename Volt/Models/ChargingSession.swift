@@ -158,7 +158,7 @@ struct ChargingSchedule: Identifiable, Codable {
 
         let nowMinutes = calendar.component(.hour, from: now) * 60 + calendar.component(.minute, from: now)
         let startMinutes = startHour * 60 + startMinute
-        var endMinutes = endHour * 60 + endMinute
+        let endMinutes = endHour * 60 + endMinute
 
         // Handle overnight schedules (end < start means it ends the next day)
         if endMinutes <= startMinutes {

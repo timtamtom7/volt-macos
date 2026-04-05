@@ -1,7 +1,5 @@
 import SwiftUI
 
-// MARK: - Volt API View
-
 struct VoltAPIView: View {
     @State private var isRunning = false
     @State private var portString = "8756"
@@ -10,12 +8,10 @@ struct VoltAPIView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                // Header
+            VStack(alignment: .leading, spacing: Theme.spacing24) {
                 HStack {
                     Text("REST API Server")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
                     Spacer()
 
@@ -33,14 +29,13 @@ struct VoltAPIView: View {
                 }
 
                 Text("Enable the local API server to access Volt battery data from other apps, scripts, or the web dashboard.")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Theme.textSecondary)
 
                 Divider()
 
-                // Configuration
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Theme.spacing16) {
                     Text("Configuration")
-                        .font(.headline)
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                     HStack {
                         Text("Port:")
@@ -58,26 +53,25 @@ struct VoltAPIView: View {
                     .buttonStyle(.bordered)
                     .disabled(!isRunning)
                 }
-                .padding()
-                .background(Color(NSColor.controlBackgroundColor))
-                .cornerRadius(8)
+                .padding(Theme.spacing16)
+                .background(Theme.secondaryBackground)
+                .cornerRadius(Theme.cornerRadiusMD)
 
                 Divider()
 
-                // API Key
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Theme.spacing16) {
                     Text("API Authentication")
-                        .font(.headline)
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                     if let apiKey = currentAPIKey {
                         HStack {
                             if showAPIKey {
                                 Text(apiKey)
-                                    .font(.system(.body, design: .monospaced))
+                                    .font(.system(size: Theme.fontSizeBody, design: .monospaced))
                                     .textSelection(.enabled)
                             } else {
                                 Text(String(repeating: "•", count: 40))
-                                    .font(.system(.body, design: .monospaced))
+                                    .font(.system(size: Theme.fontSizeBody, design: .monospaced))
                             }
 
                             Spacer()
@@ -94,26 +88,24 @@ struct VoltAPIView: View {
                         .buttonStyle(.borderedProminent)
                     }
                 }
-                .padding()
-                .background(Color(NSColor.controlBackgroundColor))
-                .cornerRadius(8)
+                .padding(Theme.spacing16)
+                .background(Theme.secondaryBackground)
+                .cornerRadius(Theme.cornerRadiusMD)
 
                 Divider()
 
-                // Endpoints
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Theme.spacing16) {
                     Text("API Endpoints")
-                        .font(.headline)
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                     endpointsList
                 }
 
                 Divider()
 
-                // Example Usage
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Theme.spacing16) {
                     Text("Example Usage")
-                        .font(.headline)
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                     codeBlock("""
                     # Get battery status
@@ -139,7 +131,7 @@ struct VoltAPIView: View {
                     """)
                 }
             }
-            .padding()
+            .padding(Theme.spacing16)
         }
         .frame(minWidth: 600, minHeight: 600)
         .onAppear {
@@ -150,7 +142,7 @@ struct VoltAPIView: View {
     }
 
     private var endpointsList: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Theme.spacing8) {
             endpointRow("GET", "/status", "Battery status")
             endpointRow("GET", "/history", "Battery health history")
             endpointRow("GET", "/power-mode", "Current power mode")
@@ -159,52 +151,50 @@ struct VoltAPIView: View {
             endpointRow("GET", "/energy-cost", "Energy cost estimate")
             endpointRow("GET", "/openapi.json", "OpenAPI 3.0 spec")
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(8)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusMD)
     }
 
     private func endpointRow(_ method: String, _ path: String, _ description: String) -> some View {
         HStack {
             Text(method)
-                .font(.system(.caption, design: .monospaced))
+                .font(.system(size: Theme.fontSizeCaption, design: .monospaced))
                 .fontWeight(.bold)
                 .foregroundColor(methodColor(method))
                 .frame(width: 50, alignment: .leading)
 
             Text(path)
-                .font(.system(.caption, design: .monospaced))
+                .font(.system(size: Theme.fontSizeCaption, design: .monospaced))
                 .textSelection(.enabled)
 
             Spacer()
 
             Text(description)
-                .font(.caption)
-                .foregroundColor(.secondary)
+                .font(.system(size: Theme.fontSizeCaption))
+                .foregroundColor(Theme.textSecondary)
         }
     }
 
     private func methodColor(_ method: String) -> Color {
         switch method {
-        case "GET": return .green
-        case "PUT": return .orange
-        case "POST": return .blue
-        case "DELETE": return .red
-        default: return .gray
+        case "GET": return Theme.accentGreen
+        case "PUT": return Theme.accentOrange
+        case "POST": return Theme.primaryBlue
+        case "DELETE": return Theme.danger
+        default: return Theme.textSecondary
         }
     }
 
     private func codeBlock(_ code: String) -> some View {
         Text(code)
-            .font(.system(.caption, design: .monospaced))
+            .font(.system(size: Theme.fontSizeCaption, design: .monospaced))
             .textSelection(.enabled)
-            .padding()
+            .padding(Theme.spacing16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(NSColor.textBackgroundColor))
-            .cornerRadius(8)
+            .background(Theme.tertiaryBackground)
+            .cornerRadius(Theme.cornerRadiusMD)
     }
-
-    // MARK: - Actions
 
     private func startServer() async {
         do {

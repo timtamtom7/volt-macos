@@ -10,6 +10,9 @@ public final class VoltPrivacyService {
     private let keychainService = "com.volt.macos.encryption"
     private let keychainAccount = "battery-history-key"
     
+    private let apiKeyService = "com.volt.macos.api"
+    private let apiKeyAccount = "api-key"
+    
     private init() {}
     
     public func getOrCreateEncryptionKey() throws -> SymmetricKey {
@@ -76,6 +79,58 @@ public final class VoltPrivacyService {
             kSecAttrService as String: keychainService
         ]
         SecItemDelete(keychainQuery as CFDictionary)
+        let apiKeyQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: apiKeyService
+        ]
+        SecItemDelete(apiKeyQuery as CFDictionary)
+    }
+
+    // MARK: - API Key Storage (Keychain)
+
+    public func saveAPIKey(_ key: String) throws {
+        guard let keyData = key.data(using: .utf8) else {
+            throw VoltPrivacyError.encryptionFailed
+        }
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: apiKeyService,
+            kSecAttrAccount as String: apiKeyAccount,
+            kSecValueData as String: keyData,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        ]
+        SecItemDelete(query as CFDictionary)
+        let status = SecItemAdd(query as CFDictionary, nil)
+        guard status == errSecSuccess else {
+            throw VoltPrivacyError.keychainStoreFailed(status)
+        }
+    }
+
+    public func retrieveAPIKey() throws -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: apiKeyService,
+            kSecAttrAccount as String: apiKeyAccount,
+            kSecReturnData as String: true
+        ]
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        if status == errSecItemNotFound {
+            return nil
+        }
+        guard status == errSecSuccess, let keyData = result as? Data else {
+            throw VoltPrivacyError.keychainRetrieveFailed(status)
+        }
+        return String(data: keyData, encoding: .utf8)
+    }
+
+    public func deleteAPIKey() {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: apiKeyService,
+            kSecAttrAccount as String: apiKeyAccount
+        ]
+        SecItemDelete(query as CFDictionary)
     }
     
     public static var privacyManifest: [String: Any] {

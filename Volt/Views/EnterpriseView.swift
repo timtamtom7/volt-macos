@@ -1,7 +1,5 @@
 import SwiftUI
 
-// MARK: - Enterprise View
-
 struct EnterpriseView: View {
     @StateObject private var fleetService = TeamFleetService.shared
     @State private var selectedTab = 0
@@ -19,7 +17,7 @@ struct EnterpriseView: View {
                 Text("License Management").tag(3)
             }
             .pickerStyle(.segmented)
-            .padding()
+            .padding(Theme.spacing16)
 
             Divider()
 
@@ -34,26 +32,23 @@ struct EnterpriseView: View {
         .frame(minWidth: 600, minHeight: 400)
     }
 
-    // MARK: - MDM Config View
-
     private var mdmConfigView: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: Theme.spacing24) {
                 HStack {
                     Text("Mobile Device Management")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
                     Spacer()
 
                     if fleetService.isMDMEnrolled {
                         Label("Enrolled", systemImage: "checkmark.circle.fill")
-                            .foregroundColor(.green)
+                            .foregroundColor(Theme.accentGreen)
                     }
                 }
 
                 Text("Configure MDM settings for enterprise deployment. IT administrators can push power profiles and policies to managed Macs.")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Theme.textSecondary)
 
                 if fleetService.isMDMEnrolled {
                     enrolledMDMView
@@ -61,12 +56,12 @@ struct EnterpriseView: View {
                     notEnrolledView
                 }
             }
-            .padding()
+            .padding(Theme.spacing16)
         }
     }
 
     private var enrolledMDMView: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: Theme.spacing16) {
             if let config = fleetService.mdmConfiguration {
                 infoRow("Organization", config.organizationName)
                 infoRow("Server", config.serverURL ?? "N/A")
@@ -74,23 +69,23 @@ struct EnterpriseView: View {
                 Divider()
 
                 Text("Managed Settings")
-                    .font(.headline)
+                    .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                 managedSettingsGrid(config.managedSettings)
 
                 Divider()
 
                 Text("Locked Settings")
-                    .font(.headline)
+                    .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
                 if config.lockedSettings.isEmpty {
                     Text("No settings locked")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Theme.textSecondary)
                 } else {
                     ForEach(config.lockedSettings, id: \.self) { setting in
                         HStack {
                             Image(systemName: "lock.fill")
-                                .foregroundColor(.orange)
+                                .foregroundColor(Theme.accentOrange)
                             Text(setting)
                         }
                     }
@@ -99,46 +94,45 @@ struct EnterpriseView: View {
                 Button("Unenroll from MDM") {
                     fleetService.unenrollMDM()
                 }
-                .foregroundColor(.red)
+                .foregroundColor(Theme.danger)
             }
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
     private var notEnrolledView: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: Theme.spacing16) {
             Image(systemName: "building.2")
-                .font(.system(size: 48))
-                .foregroundColor(.secondary)
+                .font(.system(size: 48, weight: .light))
+                .foregroundColor(Theme.textSecondary)
 
             Text("Not Enrolled in MDM")
-                .font(.headline)
+                .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
             Text("Enter your MDM server details to enroll this Mac in enterprise management.")
                 .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
+                .foregroundColor(Theme.textSecondary)
 
             Button("Enroll in MDM") {
                 showEnrollment = true
             }
             .buttonStyle(.borderedProminent)
         }
-        .padding(40)
+        .padding(Theme.spacing40)
         .frame(maxWidth: .infinity)
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
         .sheet(isPresented: $showEnrollment) {
             enrollmentSheet
         }
     }
 
     private var enrollmentSheet: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: Theme.spacing20) {
             Text("MDM Enrollment")
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
             TextField("Organization Name", text: $orgName)
                 .textFieldStyle(.roundedBorder)
@@ -167,14 +161,14 @@ struct EnterpriseView: View {
                 .disabled(orgName.isEmpty || serverURL.isEmpty)
             }
         }
-        .padding(32)
+        .padding(Theme.spacing32)
         .frame(width: 400)
     }
 
     private func infoRow(_ label: String, _ value: String) -> some View {
         HStack {
             Text(label)
-                .foregroundColor(.secondary)
+                .foregroundColor(Theme.textSecondary)
             Spacer()
             Text(value)
                 .fontWeight(.medium)
@@ -182,7 +176,7 @@ struct EnterpriseView: View {
     }
 
     private func managedSettingsGrid(_ settings: ManagedSettings) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Theme.spacing8) {
             settingToggle("Force Low Power Mode", isOn: settings.forceLowPowerMode)
             settingToggle("Disable Sleep Mode", isOn: settings.disableSleepMode)
 
@@ -191,7 +185,7 @@ struct EnterpriseView: View {
                     Text("Quiet Hours")
                     Spacer()
                     Text("\(start) - \(end)")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Theme.textSecondary)
                 }
             }
         }
@@ -202,23 +196,20 @@ struct EnterpriseView: View {
             Text(label)
             Spacer()
             Image(systemName: isOn ? "checkmark.square.fill" : "square")
-                .foregroundColor(isOn ? .green : .secondary)
+                .foregroundColor(isOn ? Theme.accentGreen : Theme.textSecondary)
         }
     }
 
-    // MARK: - Compliance View
-
     private var complianceView: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: Theme.spacing24) {
                 Text("Compliance & Audit Reports")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
                 Text("Generate battery health compliance reports and audit logs for regulatory requirements.")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Theme.textSecondary)
 
-                HStack(spacing: 16) {
+                HStack(spacing: Theme.spacing16) {
                     Button("Generate Compliance Report") {
                         generateComplianceReport()
                     }
@@ -232,23 +223,23 @@ struct EnterpriseView: View {
 
                 complianceInfoSection
             }
-            .padding()
+            .padding(Theme.spacing16)
         }
     }
 
     private var complianceInfoSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.spacing12) {
             Text("Available Reports")
-                .font(.headline)
+                .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
             reportRow("Battery Health Compliance", "PDF", "SOC 2 compliant battery health report")
             reportRow("Fleet Battery Summary", "CSV", "Overview of all fleet devices")
             reportRow("Audit Log", "JSON", "All power setting changes")
             reportRow("GDPR Data Export", "JSON", "All personal data in Volt")
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
     private func reportRow(_ name: String, _ format: String, _ description: String) -> some View {
@@ -257,121 +248,108 @@ struct EnterpriseView: View {
                 Text(name)
                     .fontWeight(.medium)
                 Text(description)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(.system(size: Theme.fontSizeCaption, weight: .regular))
+                    .foregroundColor(Theme.textSecondary)
             }
 
             Spacer()
 
             Text(format)
-                .font(.caption)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .font(.system(size: Theme.fontSizeCaption, weight: .regular))
+                .padding(.horizontal, Theme.spacing8)
+                .padding(.vertical, Theme.spacing4)
                 .background(Color.accentColor.opacity(0.2))
-                .cornerRadius(4)
+                .cornerRadius(Theme.cornerRadiusSM)
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, Theme.spacing4)
     }
-
-    // MARK: - SSO View
 
     private var ssoView: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: Theme.spacing24) {
                 Text("Single Sign-On (SSO)")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
                 Text("Configure enterprise SSO for dashboard access. Supports Okta, Azure AD, and Google Workspace.")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Theme.textSecondary)
 
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Theme.spacing16) {
                     Text("Supported Providers")
-                        .font(.headline)
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
 
-                    HStack(spacing: 20) {
+                    HStack(spacing: Theme.spacing20) {
                         providerButton("Okta", icon: "O")
                         providerButton("Azure AD", icon: "A")
                         providerButton("Google", icon: "G")
                     }
                 }
-                .padding()
-                .background(Color(NSColor.controlBackgroundColor))
-                .cornerRadius(12)
+                .padding(Theme.spacing16)
+                .background(Theme.secondaryBackground)
+                .cornerRadius(Theme.cornerRadiusLG)
             }
-            .padding()
+            .padding(Theme.spacing16)
         }
     }
 
     private func providerButton(_ name: String, icon: String) -> some View {
         VStack {
             Text(icon)
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.system(size: Theme.fontSizeTitle2, weight: .bold))
                 .frame(width: 50, height: 50)
                 .background(Color.accentColor.opacity(0.2))
-                .cornerRadius(8)
+                .cornerRadius(Theme.cornerRadiusMD)
             Text(name)
-                .font(.caption)
+                .font(.system(size: Theme.fontSizeCaption, weight: .regular))
         }
     }
 
-    // MARK: - License View
-
     private var licenseView: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: Theme.spacing24) {
                 Text("Volume License Management")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
 
                 Text("Manage Apple VPP volume licenses for organization-wide deployment.")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Theme.textSecondary)
 
-                VStack(spacing: 16) {
+                VStack(spacing: Theme.spacing16) {
                     licenseCard("Total Licenses", "100", icon: "doc.badge.plus")
                     licenseCard("Assigned", "75", icon: "person.badge.plus")
                     licenseCard("Available", "25", icon: "checkmark.circle")
                 }
 
                 Button("View in Apple Business Manager") {
-                    // Open AB portal
                 }
                 .buttonStyle(.bordered)
             }
-            .padding()
+            .padding(Theme.spacing16)
         }
     }
 
     private func licenseCard(_ title: String, _ value: String, icon: String) -> some View {
         HStack {
             Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(.accentColor)
+                .font(.system(size: Theme.fontSizeTitle3, weight: .medium))
+                .foregroundColor(Theme.primaryBlue)
 
             VStack(alignment: .leading) {
                 Text(value)
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .bold))
                 Text(title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(.system(size: Theme.fontSizeCaption, weight: .regular))
+                    .foregroundColor(Theme.textSecondary)
             }
 
             Spacer()
         }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
-        .cornerRadius(12)
+        .padding(Theme.spacing16)
+        .background(Theme.secondaryBackground)
+        .cornerRadius(Theme.cornerRadiusLG)
     }
 
-    // MARK: - Actions
-
     private func generateComplianceReport() {
-        // Generate PDF report
     }
 
     private func exportAuditLog() {
-        // Export JSON audit log
     }
 }

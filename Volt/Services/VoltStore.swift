@@ -60,6 +60,13 @@ final class VoltStore: ObservableObject {
     private var pollTimer: Timer?
     private var snapshotTimer: Timer?
     private var scheduleCheckTimer: Timer?
+    private var lastSnapshotSave: Date?
+
+    deinit {
+        pollTimer?.invalidate()
+        snapshotTimer?.invalidate()
+        scheduleCheckTimer?.invalidate()
+    }
 
     // MARK: - Init
 
@@ -111,6 +118,36 @@ final class VoltStore: ObservableObject {
 
         currentCharge = info
         isLoading = false
+
+        // Widget data update
+        updateWidgetData(info: info)
+    }
+
+    // MARK: - Widget Data
+
+    private let widgetSuiteName = "group.com.volt.macos"
+
+    private func updateWidgetData(info: BatteryInfo) {
+        guard let defaults = UserDefaults(suiteName: widgetSuiteName) else { return }
+        defaults.set(info.charge, forKey: "widget_battery_percent")
+        defaults.set(info.healthPercent, forKey: "widget_health_percent")
+        defaults.set(info.isCharging, forKey: "widget_is_charging")
+        defaults.set(timeRemainingString, forKey: "widget_time_remaining")
+        defaults.synchronize()
+    }
+
+    private var timeRemainingString: String? {
+        if currentCharge.isCharging {
+            if currentCharge.charge < 100 {
+                let minutesRemaining = max(1, (100 - currentCharge.charge) * 2)
+                if minutesRemaining >= 60 {
+                    return "\(minutesRemaining / 60)h \(minutesRemaining % 60)m"
+                }
+                return "\(minutesRemaining)m"
+            }
+            return "Complete"
+        }
+        return nil
     }
 
     func startPolling(interval: TimeInterval = 30) {
@@ -131,21 +168,27 @@ final class VoltStore: ObservableObject {
 
     private func trackChargingSession(info: BatteryInfo) {
         if info.isCharging && !wasCharging {
-            // Charging started
             let session = ChargingSession(
                 batteryId: "main",
                 startCharge: info.charge
             )
             activeSessionId = session.id
             wasCharging = true
-            try? db.startSession(session)
+            do {
+                try db.startSession(session)
+            } catch {
+                print("Volt: Failed to start charging session: \(error)")
+            }
             if notifyFullyCharged {
                 notifications.sendChargingStartedNotification(charge: info.charge)
             }
         } else if !info.isCharging && wasCharging {
-            // Charging ended
             if let sessionId = activeSessionId {
-                try? db.endSession(sessionId, endCharge: info.charge)
+                do {
+                    try db.endSession(sessionId, endCharge: info.charge)
+                } catch {
+                    print("Volt: Failed to end charging session: \(error)")
+                }
                 activeSessionId = nil
                 loadHistory()
                 if let sessions = try? db.fetchRecentSessions(limit: 5) {
@@ -193,7 +236,11 @@ final class VoltStore: ObservableObject {
 
     func saveSnapshot() {
         let snapshot = BatterySnapshot(from: currentCharge)
-        try? db.saveSnapshot(snapshot)
+        do {
+            try db.saveSnapshot(snapshot)
+        } catch {
+            print("Volt: Failed to save battery snapshot: \(error)")
+        }
     }
 
     // MARK: - R3: Schedules

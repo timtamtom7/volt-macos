@@ -1,6 +1,40 @@
 import Foundation
 import SQLite
 
+// MARK: - Database Errors
+
+enum VoltDatabaseError: Error, CustomStringConvertible {
+    case connectionFailed
+    case tableCreationFailed
+    case sessionInsertFailed
+    case sessionEndFailed
+    case snapshotSaveFailed
+    case scheduleInsertFailed
+    case scheduleDeleteFailed
+    case queryFailed(operation: String)
+
+    var description: String {
+        switch self {
+        case .connectionFailed:
+            return "Volt DB: Failed to connect to database"
+        case .tableCreationFailed:
+            return "Volt DB: Failed to create tables"
+        case .sessionInsertFailed:
+            return "Volt DB: Failed to insert charging session"
+        case .sessionEndFailed:
+            return "Volt DB: Failed to end charging session"
+        case .snapshotSaveFailed:
+            return "Volt DB: Failed to save battery snapshot"
+        case .scheduleInsertFailed:
+            return "Volt DB: Failed to save schedule"
+        case .scheduleDeleteFailed:
+            return "Volt DB: Failed to delete schedule"
+        case .queryFailed(let operation):
+            return "Volt DB: Query failed during '\(operation)'"
+        }
+    }
+}
+
 final class VoltDatabaseService {
     static let shared = VoltDatabaseService()
 
@@ -57,25 +91,25 @@ final class VoltDatabaseService {
     // MARK: - Init
 
     private init() {
-        setupDatabase()
-    }
-
-    private func setupDatabase() {
         do {
-            let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            let voltDir = appSupport.appendingPathComponent("Volt", isDirectory: true)
-
-            if !FileManager.default.fileExists(atPath: voltDir.path) {
-                try FileManager.default.createDirectory(at: voltDir, withIntermediateDirectories: true)
-            }
-
-            let dbPath = voltDir.appendingPathComponent("volt_data.db").path
-            db = try Connection(dbPath)
-
-            try createTables()
+            try setupDatabase()
         } catch {
             print("Volt DB setup error: \(error)")
         }
+    }
+
+    private func setupDatabase() throws {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let voltDir = appSupport.appendingPathComponent("Volt", isDirectory: true)
+
+        if !FileManager.default.fileExists(atPath: voltDir.path) {
+            try FileManager.default.createDirectory(at: voltDir, withIntermediateDirectories: true)
+        }
+
+        let dbPath = voltDir.appendingPathComponent("volt_data.db").path
+        db = try Connection(dbPath)
+
+        try createTables()
     }
 
     private func createTables() throws {
@@ -326,12 +360,12 @@ final class VoltDatabaseService {
             .order(dDate.desc)
 
         for row in try db.prepare(query) {
-            let id = UUID(uuidString: row[dId])
-            if id == nil {
+            guard let id = UUID(uuidString: row[dId]) else {
                 print("Volt DB: invalid daily stat UUID '\(row[dId])' — skipping row")
+                continue
             }
             result.append(DailyBatteryStats(
-                id: id ?? UUID(),
+                id: id,
                 date: row[dDate],
                 maxCharge: row[dMaxCharge],
                 minCharge: row[dMinCharge],
@@ -368,12 +402,12 @@ final class VoltDatabaseService {
         for row in try db.prepare(schedules) {
             let daysData = Data(base64Encoded: row[scDays]) ?? Data()
             let daysArray = (try? JSONDecoder().decode([Int].self, from: daysData)) ?? []
-            let id = UUID(uuidString: row[scId])
-            if id == nil {
+            guard let id = UUID(uuidString: row[scId]) else {
                 print("Volt DB: invalid schedule UUID '\(row[scId])' — skipping row")
+                continue
             }
             let schedule = ChargingSchedule(
-                id: id ?? UUID(),
+                id: id,
                 name: row[scName],
                 startHour: row[scStartHour],
                 startMinute: row[scStartMinute],
@@ -392,5 +426,21 @@ final class VoltDatabaseService {
         guard let db = db else { return }
         let row = schedules.filter(scId == scheduleId.uuidString)
         try db.run(row.delete())
+    }
+
+    // MARK: - Health Records
+
+    func fetchHealthRecords(limit: Int = 100) throws -> [BatteryHealthRecord] {
+        let snapshots = try fetchSnapshots(limit: limit)
+        return snapshots.map { snapshot in
+            BatteryHealthRecord(
+                id: snapshot.id,
+                date: snapshot.timestamp,
+                healthPercent: snapshot.healthPercent,
+                maxCapacity: 0,
+                designCapacity: 0,
+                cycleCount: snapshot.cycleCount
+            )
+        }
     }
 }

@@ -10,43 +10,33 @@ struct HealthDetailView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("Battery Health")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { isPresented = false }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .medium))
+                        .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(16)
+            .padding(Theme.spacing16)
 
             Divider()
 
             ScrollView {
-                VStack(spacing: 16) {
-                    // Health Status Card
+                VStack(spacing: Theme.spacing16) {
                     healthStatusCard
-
-                    // Cycle Count
                     cycleCountCard
-
-                    // Capacity Info
                     capacityCard
-
-                    // Health Alerts
                     if !healthAlerts.isEmpty {
                         alertsSection
                     }
-
-                    // Health Trend
                     healthTrendCard
                 }
-                .padding(16)
+                .padding(Theme.spacing16)
             }
         }
         .frame(width: 420, height: 500)
@@ -62,107 +52,110 @@ struct HealthDetailView: View {
     }
 
     private var healthStatusCard: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: Theme.spacing12) {
             HStack {
                 ZStack {
                     Circle()
                         .stroke(Theme.textSecondary.opacity(0.3), lineWidth: 8)
                         .frame(width: 100, height: 100)
+                        .accessibilityLabel("Health indicator ring")
 
                     Circle()
                         .trim(from: 0, to: CGFloat(batteryInfo.healthPercent) / 100)
                         .stroke(healthColor, lineWidth: 8)
                         .frame(width: 100, height: 100)
                         .rotationEffect(.degrees(-90))
+                        .accessibilityHidden(true)
 
                     VStack(spacing: 2) {
                         Text("\(batteryInfo.healthPercent)%")
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .font(.system(size: Theme.fontSizeTitle2, weight: .bold, design: .rounded))
                             .foregroundColor(Theme.textPrimary)
+                            .accessibilityLabel("Battery health \(batteryInfo.healthPercent) percent")
                         Text("Health")
-                            .font(.system(size: 11))
+                            .font(.system(size: Theme.fontSizeCaption))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
 
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: Theme.spacing8) {
                     Text(batteryInfo.healthDescription)
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .semibold))
                         .foregroundColor(healthColor)
+                        .accessibilityLabel("Health status: \(batteryInfo.healthDescription)")
 
-                    if let snapshot = healthService.getLatestSnapshot() {
-                        HStack(spacing: 4) {
-                            Image(systemName: trendIcon)
-                                .font(.system(size: 12))
-                                .foregroundColor(trendColor)
-                            Text(trendDescription)
-                                .font(.system(size: 12))
-                                .foregroundColor(Theme.textSecondary)
-                        }
+                    HStack(spacing: Theme.spacing4) {
+                        Image(systemName: trendIcon)
+                            .font(.system(size: Theme.fontSizeSubheadline))
+                            .foregroundColor(trendColor)
+                        Text(trendDescription)
+                            .font(.system(size: Theme.fontSizeSubheadline))
+                            .foregroundColor(Theme.textSecondary)
                     }
+                    .accessibilityLabel("Health trend: \(trendDescription)")
 
                     Text("Based on charging capacity vs design")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
-                .padding(.leading, 8)
+                .padding(.leading, Theme.spacing8)
 
                 Spacer()
             }
         }
-        .padding(16)
+        .padding(Theme.spacing16)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusLG)
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: Theme.cornerRadiusLG)
                 .stroke(Theme.textSecondary.opacity(0.3), lineWidth: 1)
         )
     }
 
     private var cycleCountCard: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: Theme.spacing4) {
                 Text("Cycle Count")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
                 Text("\(batteryInfo.cycleCount)")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .font(.system(size: Theme.fontSizeTitle2, weight: .bold, design: .rounded))
                     .foregroundColor(Theme.textPrimary)
                 Text("/ 1000 rated")
-                    .font(.system(size: 11))
+                    .font(.system(size: Theme.fontSizeCaption))
                     .foregroundColor(Theme.textSecondary)
             }
 
             Spacer()
 
-            VStack(alignment: .trailing, spacing: 4) {
+            VStack(alignment: .trailing, spacing: Theme.spacing4) {
                 Text("Est. Remaining")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
                 Text("\(healthService.estimatedFullCyclesRemaining(currentCycles: batteryInfo.cycleCount))")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .font(.system(size: Theme.fontSizeTitle2, weight: .bold, design: .rounded))
                     .foregroundColor(Theme.primaryBlue)
                 Text("cycles")
-                    .font(.system(size: 11))
+                    .font(.system(size: Theme.fontSizeCaption))
                     .foregroundColor(Theme.textSecondary)
             }
         }
-        .padding(16)
+        .padding(Theme.spacing16)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusLG)
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: Theme.cornerRadiusLG)
                 .stroke(Theme.textSecondary.opacity(0.3), lineWidth: 1)
         )
     }
 
     private var capacityCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.spacing12) {
             Text("Capacity Details")
-                .font(.system(size: 13, weight: .semibold))
+                .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
 
-            VStack(spacing: 8) {
+            VStack(spacing: Theme.spacing8) {
                 capacityRow(label: "Design Capacity", value: "\(batteryInfo.designCapacity) mAh", color: Theme.textSecondary)
                 capacityRow(label: "Current Max", value: "\(batteryInfo.maxCapacity) mAh", color: Theme.textPrimary)
                 capacityRow(label: "Current Charge", value: "\(batteryInfo.currentCapacity) mAh", color: Theme.primaryBlue)
@@ -175,11 +168,11 @@ struct HealthDetailView: View {
                 capacityRow(label: "Health", value: String(format: "%.1f%%", healthValue), color: healthColor)
             }
         }
-        .padding(16)
+        .padding(Theme.spacing16)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusLG)
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: Theme.cornerRadiusLG)
                 .stroke(Theme.textSecondary.opacity(0.3), lineWidth: 1)
         )
     }
@@ -187,51 +180,51 @@ struct HealthDetailView: View {
     private func capacityRow(label: String, value: String, color: Color) -> some View {
         HStack {
             Text(label)
-                .font(.system(size: 12))
+                .font(.system(size: Theme.fontSizeSubheadline))
                 .foregroundColor(Theme.textSecondary)
             Spacer()
             Text(value)
-                .font(.system(size: 12, weight: .medium, design: .monospaced))
+                .font(.system(size: Theme.fontSizeSubheadline, weight: .medium, design: .monospaced))
                 .foregroundColor(color)
         }
     }
 
     private var alertsSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Theme.spacing8) {
             ForEach(healthAlerts) { alert in
-                HStack(spacing: 8) {
+                HStack(spacing: Theme.spacing8) {
                     Image(systemName: alertIcon(for: alert.type))
                         .foregroundColor(alertColor(for: alert.type))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(alert.title)
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.system(size: Theme.fontSizeSubheadline, weight: .semibold))
                             .foregroundColor(Theme.textPrimary)
                         Text(alert.message)
-                            .font(.system(size: 11))
+                            .font(.system(size: Theme.fontSizeCaption))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
-                .padding(8)
+                .padding(Theme.spacing8)
                 .background(alertColor(for: alert.type).opacity(0.1))
-                .cornerRadius(6)
+                .cornerRadius(Theme.cornerRadiusSM)
             }
         }
     }
 
     private var healthTrendCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Theme.spacing8) {
             Text("Health Trend")
-                .font(.system(size: 13, weight: .semibold))
+                .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
 
             let avgChange = healthService.averageHealthChangePerMonth()
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Monthly Change")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                     Text(String(format: "%+.2f%%", avgChange))
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .bold, design: .rounded))
                         .foregroundColor(avgChange >= 0 ? Theme.accentGreen : Theme.accentRed)
                 }
 
@@ -240,25 +233,23 @@ struct HealthDetailView: View {
                 if let snapshot = healthService.getLatestSnapshot() {
                     VStack(alignment: .trailing, spacing: 2) {
                         Text("Last Snapshot")
-                            .font(.system(size: 11))
+                            .font(.system(size: Theme.fontSizeCaption))
                             .foregroundColor(Theme.textSecondary)
                         Text(snapshot.healthPercent == batteryInfo.healthPercent ? "Today" : "\(snapshot.healthPercent)%")
-                            .font(.system(size: 14, weight: .medium))
+                            .font(.system(size: Theme.fontSizeHeadline, weight: .medium))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
             }
         }
-        .padding(16)
+        .padding(Theme.spacing16)
         .background(Theme.secondaryBg)
-        .cornerRadius(10)
+        .cornerRadius(Theme.cornerRadiusLG)
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: Theme.cornerRadiusLG)
                 .stroke(Theme.textSecondary.opacity(0.3), lineWidth: 1)
         )
     }
-
-    // MARK: - Helpers
 
     private var healthColor: Color {
         switch batteryInfo.healthPercent {

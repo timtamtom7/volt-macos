@@ -8,32 +8,28 @@ struct WidgetView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("Widgets")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { isPresented = false }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .medium))
+                        .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(16)
+            .padding(Theme.spacing16)
 
             Divider()
 
             ScrollView {
-                VStack(spacing: 16) {
-                    // Widget Preview
+                VStack(spacing: Theme.spacing16) {
                     widgetPreviewSection
-
-                    // Widget Sizes
                     widgetSizesSection
                 }
-                .padding(16)
+                .padding(Theme.spacing16)
             }
         }
         .frame(width: 460, height: 480)
@@ -41,13 +37,13 @@ struct WidgetView: View {
     }
 
     private var widgetPreviewSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.spacing12) {
             Text("Preview")
-                .font(.system(size: 13, weight: .semibold))
+                .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
 
             ZStack {
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: Theme.cornerRadiusLG)
                     .fill(Theme.secondaryBg)
                     .frame(
                         width: widgetPreviewSize.width,
@@ -64,12 +60,12 @@ struct WidgetView: View {
     }
 
     private var widgetSizesSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.spacing12) {
             Text("Available Widgets")
-                .font(.system(size: 13, weight: .semibold))
+                .font(.system(size: Theme.fontSizeBody, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
 
-            VStack(spacing: 8) {
+            VStack(spacing: Theme.spacing8) {
                 widgetOption(
                     title: "Small Widget",
                     description: "Battery level and status",
@@ -96,7 +92,7 @@ struct WidgetView: View {
 
     private func widgetOption(title: String, description: String, icon: String, size: WidgetSize) -> some View {
         Button(action: { selectedWidgetSize = size }) {
-            HStack(spacing: 12) {
+            HStack(spacing: Theme.spacing12) {
                 Image(systemName: icon)
                     .font(.system(size: 20))
                     .foregroundColor(Theme.primaryBlue)
@@ -104,10 +100,10 @@ struct WidgetView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 13, weight: .medium))
+                        .font(.system(size: Theme.fontSizeBody, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                     Text(description)
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
 
@@ -118,16 +114,16 @@ struct WidgetView: View {
                         .foregroundColor(Theme.accentGreen)
                 }
             }
-            .padding(12)
+            .padding(Theme.spacing12)
             .background(selectedWidgetSize == size ? Theme.primaryBlue.opacity(0.1) : Theme.secondaryBg)
-            .cornerRadius(10)
+            .cornerRadius(Theme.cornerRadiusLG)
         }
         .buttonStyle(.plain)
     }
 
     private var widgetContent: some View {
         let info = voltStore.currentCharge
-        return VStack(spacing: 8) {
+        return VStack(spacing: Theme.spacing8) {
             switch selectedWidgetSize {
             case .small:
                 smallWidget(info: info)
@@ -140,7 +136,7 @@ struct WidgetView: View {
     }
 
     private func smallWidget(info: BatteryInfo) -> some View {
-        VStack(spacing: 6) {
+        VStack(spacing: Theme.spacingSM) {
             Image(systemName: info.isCharging ? "bolt.fill" : "bolt")
                 .font(.system(size: 24))
                 .foregroundColor(info.isCharging ? Theme.accentGreen : Theme.primaryBlue)
@@ -150,14 +146,14 @@ struct WidgetView: View {
                 .foregroundColor(Theme.textPrimary)
 
             Text(info.isCharging ? "Charging" : (info.isPluggedIn ? "Plugged" : "Battery"))
-                .font(.system(size: 10))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
         }
     }
 
     private func mediumWidget(info: BatteryInfo) -> some View {
-        HStack(spacing: 16) {
-            VStack(spacing: 4) {
+        HStack(spacing: Theme.spacing16) {
+            VStack(spacing: Theme.spacing4) {
                 Image(systemName: info.isCharging ? "bolt.fill" : "bolt")
                     .font(.system(size: 28))
                     .foregroundColor(info.isCharging ? Theme.accentGreen : Theme.primaryBlue)
@@ -167,31 +163,31 @@ struct WidgetView: View {
                     .foregroundColor(Theme.textPrimary)
             }
 
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: Theme.spacingSM) {
                 HStack {
                     Image(systemName: "heart.fill")
-                        .font(.system(size: 10))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(healthColor(info.healthPercent))
                     Text("\(info.healthPercent)% health")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
 
                 HStack {
                     Image(systemName: "thermometer")
-                        .font(.system(size: 10))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                     Text(String(format: "%.1f°C", info.temperature))
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
 
                 HStack {
                     Image(systemName: "arrow.2.circlepath")
-                        .font(.system(size: 10))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                     Text("\(info.cycleCount) cycles")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
@@ -199,15 +195,14 @@ struct WidgetView: View {
     }
 
     private func largeWidget(info: BatteryInfo) -> some View {
-        VStack(spacing: 12) {
-            // Header
+        VStack(spacing: Theme.spacing12) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Volt")
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.system(size: Theme.fontSizeHeadline, weight: .bold))
                         .foregroundColor(Theme.textPrimary)
                     Text(info.isCharging ? "Charging" : (info.isPluggedIn ? "Plugged In" : "On Battery"))
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
                 Spacer()
@@ -216,13 +211,11 @@ struct WidgetView: View {
                     .foregroundColor(info.isCharging ? Theme.accentGreen : Theme.primaryBlue)
             }
 
-            // Main charge
             Text("\(info.charge)%")
                 .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundColor(Theme.textPrimary)
 
-            // Grid of stats
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Theme.spacing8) {
                 widgetStatCard(icon: "heart.fill", label: "Health", value: "\(info.healthPercent)%", color: healthColor(info.healthPercent))
                 widgetStatCard(icon: "thermometer", label: "Temp", value: String(format: "%.1f°C", info.temperature), color: tempColor(info.temperature))
                 widgetStatCard(icon: "arrow.2.circlepath", label: "Cycles", value: "\(info.cycleCount)", color: Theme.primaryBlue)
@@ -232,24 +225,22 @@ struct WidgetView: View {
     }
 
     private func widgetStatCard(icon: String, label: String, value: String, color: Color) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: Theme.spacing4) {
             Image(systemName: icon)
-                .font(.system(size: 12))
+                .font(.system(size: Theme.fontSizeSubheadline))
                 .foregroundColor(color)
             Text(value)
-                .font(.system(size: 12, weight: .bold, design: .rounded))
+                .font(.system(size: Theme.fontSizeSubheadline, weight: .bold, design: .rounded))
                 .foregroundColor(Theme.textPrimary)
             Text(label)
-                .font(.system(size: 9))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
         }
         .frame(maxWidth: .infinity)
-        .padding(8)
+        .padding(Theme.spacing8)
         .background(Theme.secondaryBg)
-        .cornerRadius(8)
+        .cornerRadius(Theme.cornerRadiusMD)
     }
-
-    // MARK: - Helpers
 
     private var widgetPreviewSize: CGSize {
         switch selectedWidgetSize {

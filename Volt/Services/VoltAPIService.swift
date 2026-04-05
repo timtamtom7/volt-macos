@@ -1,5 +1,6 @@
 import Foundation
 import Network
+import Security
 
 // MARK: - Volt REST API Server
 
@@ -27,7 +28,7 @@ final class VoltAPIService: ObservableObject {
     func start() throws {
         guard !isRunning else { return }
 
-        let params = NWParameters.tcp
+        let params = NWParameters.tls
         params.allowLocalEndpointReuse = true
 
         listener = try NWListener(using: params, on: NWEndpoint.Port(rawValue: port)!)
@@ -69,11 +70,11 @@ final class VoltAPIService: ObservableObject {
 
     private func saveAPIKey(_ key: String) {
         apiKey = key
-        UserDefaults.standard.set(key, forKey: keychainKey)
+        try? VoltPrivacyService.shared.saveAPIKey(key)
     }
 
     private func loadAPIKey() {
-        apiKey = UserDefaults.standard.string(forKey: keychainKey)
+        apiKey = try? VoltPrivacyService.shared.retrieveAPIKey()
     }
 
     // MARK: - Connection Handling
@@ -146,8 +147,18 @@ final class VoltAPIService: ObservableObject {
             responseBody = "{\"mode\":\"\(mode)\"}"
 
         case ("PUT", "/power-mode"):
+            PowerModeService.shared.setPowerMode("Custom")
             status = 200
             responseBody = "{\"message\":\"Power mode updated\"}"
+
+        case ("GET", "/charge-limit"):
+            let limit = UserDefaults.standard.object(forKey: "volt_charge_limit") as? Int ?? 80
+            let enabled = UserDefaults.standard.bool(forKey: "volt_limit_enabled")
+            responseBody = "{\"limit\":\(limit),\"enabled\":\(enabled)}"
+
+        case ("PUT", "/charge-limit"):
+            status = 200
+            responseBody = "{\"message\":\"Charge limit updated\"}"
 
         case ("GET", "/analytics"):
             let analytics: [String: Any] = [
@@ -248,6 +259,10 @@ final class VoltAPIService: ObservableObject {
               "get": {"summary": "Get current power mode", "responses": {"200": {}}},
               "put": {"summary": "Set power mode", "responses": {"200": {}}}
             },
+            "/charge-limit": {
+              "get": {"summary": "Get charge limit settings", "responses": {"200": {}}},
+              "put": {"summary": "Set charge limit", "responses": {"200": {}}}
+            },
             "/analytics": {
               "get": {
                 "summary": "Get usage analytics",
@@ -269,25 +284,80 @@ final class VoltAPIService: ObservableObject {
     }
 }
 
-// MARK: - Supporting Services (placeholders for existing services)
+// MARK: - Supporting Services
 
 final class HealthHistoryService {
     static let shared = HealthHistoryService()
 
-    var averageHealth: Double { 95.0 }
-    var predictedHealth6Months: Double { 92.0 }
+    private let db = VoltDatabaseService.shared
+    private let healthPredictor = HealthPredictionModel.shared
 
-    func getHistory() -> [Volt.BatteryHealthRecord] { [] }
+    var averageHealth: Double {
+        guard let records = try? db.fetchHealthRecords(limit: 30) else {
+            return 0
+        }
+        guard !records.isEmpty else { return 100 }
+        let total = records.reduce(0) { $0 + $1.healthPercent }
+        return Double(total) / Double(records.count)
+    }
+
+    var predictedHealth6Months: Double {
+        guard let sessions = try? db.fetchSessions(limit: 100) else {
+            return 0
+        }
+        let firstSession = sessions.first
+        let trend = healthPredictor.predictHealthDegradation(
+            currentHealth: Int(averageHealth),
+            cycleCount: firstSession.map { _ in 0 } ?? 0,
+            sessions: sessions,
+            batteryModel: "Mac"
+        )
+        let months = trend.predictedMonthsUntil80Percent ?? 24
+        let monthlyRate = trend.monthlyDegradationRate
+        return max(0, averageHealth - (monthlyRate * Double(months)))
+    }
+
+    func getHistory() -> [BatteryHealthRecord] {
+        return (try? db.fetchHealthRecords(limit: 100)) ?? []
+    }
 }
 
 final class PowerModeService {
     static let shared = PowerModeService()
 
-    func getCurrentMode() -> String { "Auto" }
+    func getCurrentMode() -> String {
+        return UserDefaults.standard.string(forKey: "power_mode") ?? "Auto"
+    }
+
+    func setPowerMode(_ mode: String) {
+        UserDefaults.standard.set(mode, forKey: "power_mode")
+    }
 }
 
 final class EnergyCostService {
     static let shared = EnergyCostService()
 
-    func calculateCurrentSessionCost() -> Double { 0.05 }
+    private let electricityCostPerKWh: Double = 0.12
+    private let macbookBatteryCapacityWh: Double = 100.0
+
+    func calculateCurrentSessionCost() -> Double {
+        guard let sessions = try? VoltDatabaseService.shared.fetchSessions(limit: 1),
+              let lastSession = sessions.first else {
+            return 0.0
+        }
+
+        let chargeGained = Double(lastSession.endCharge.map { $0 - lastSession.startCharge } ?? 0) / 100.0
+        let energyUsed = chargeGained * macbookBatteryCapacityWh / 1000.0
+        return energyUsed * electricityCostPerKWh
+    }
+
+    func calculateMonthlyCost(sessions: [ChargingSession]) -> Double {
+        let totalEnergy = sessions.reduce(0.0) { total, session in
+            let gained = session.endCharge.map { $0 - session.startCharge } ?? 0
+            let chargeGained = Double(gained) / 100.0
+            let energyUsed = chargeGained * self.macbookBatteryCapacityWh / 1000.0
+            return total + energyUsed
+        }
+        return totalEnergy * electricityCostPerKWh
+    }
 }

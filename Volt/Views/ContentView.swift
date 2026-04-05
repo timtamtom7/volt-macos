@@ -48,7 +48,9 @@ struct ContentView: View {
                 }
                 .tag(6)
         }
+        .tabViewStyle(.automatic)
         .frame(width: 380, height: 420)
+        .background(Theme.background)
         .onAppear {
             voltStore.startPolling(interval: 30)
         }
@@ -58,8 +60,6 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Battery Tab
-
 struct BatteryTabView: View {
     @ObservedObject var voltStore: VoltStore
     @State private var showHealthDetail = false
@@ -68,32 +68,31 @@ struct BatteryTabView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             HStack {
                 Text("Volt")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: Theme.fontSizeTitle3, weight: .semibold))
                 Spacer()
-                HStack(spacing: 12) {
+                HStack(spacing: Theme.spacing12) {
                     Button(action: { showRecommendations = true }) {
                         Image(systemName: "lightbulb")
-                            .font(.system(size: 12))
+                            .font(.system(size: Theme.fontSizeSubheadline))
                             .foregroundColor(Theme.primaryBlue)
                     }
                     .buttonStyle(.plain)
 
                     Button(action: { showWidgetSheet = true }) {
                         Image(systemName: "square.grid.2x2")
-                            .font(.system(size: 12))
+                            .font(.system(size: Theme.fontSizeSubheadline))
                             .foregroundColor(Theme.primaryBlue)
                     }
                     .buttonStyle(.plain)
                     Text("Battery")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 12)
+            .padding(.horizontal, Theme.spacing16)
+            .padding(.top, Theme.spacing12)
 
             Divider()
 
@@ -103,27 +102,26 @@ struct BatteryTabView: View {
                 Spacer()
             } else {
                 BatteryStatusSection(info: voltStore.currentCharge)
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, Theme.spacing16)
 
                 Divider()
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, Theme.spacing16)
 
                 LimitSection(voltStore: voltStore)
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, Theme.spacing16)
 
                 HealthSectionView(voltStore: voltStore)
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, Theme.spacing16)
 
-                // Note
-                HStack(spacing: 4) {
+                HStack(spacing: Theme.spacing4) {
                     Image(systemName: "info.circle")
-                        .font(.system(size: 10))
+                        .font(.system(size: Theme.fontSizeCaption2))
                     Text("Hardware-level limiting requires additional permissions")
-                        .font(.system(size: 9))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 12)
+                .padding(.horizontal, Theme.spacing16)
+                .padding(.bottom, Theme.spacing12)
             }
         }
         .background(Theme.background)
@@ -142,26 +140,24 @@ struct BatteryTabView: View {
     }
 }
 
-// MARK: - Health Section View
-
 struct HealthSectionView: View {
     @ObservedObject var voltStore: VoltStore
     @State private var showHealthDetail = false
 
     var body: some View {
         let info = voltStore.currentCharge
-        return VStack(spacing: 8) {
+        return VStack(spacing: Theme.spacing8) {
             HStack {
                 Image(systemName: "heart.fill")
-                    .font(.system(size: 12))
+                    .font(.system(size: Theme.fontSizeSubheadline))
                     .foregroundColor(healthColor(for: info.healthPercent))
                 Text("Battery Health")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .foregroundColor(Theme.textPrimary)
                 Spacer()
                 Button(action: { showHealthDetail = true }) {
                     Text("Details")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.primaryBlue)
                 }
                 .buttonStyle(.plain)
@@ -169,17 +165,17 @@ struct HealthSectionView: View {
 
             HStack {
                 Text(info.healthDescription)
-                    .font(.system(size: 11))
+                    .font(.system(size: Theme.fontSizeCaption))
                     .foregroundColor(healthColor(for: info.healthPercent))
                 Spacer()
                 Text("\(info.healthPercent)%")
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .font(.system(size: Theme.fontSizeCaption, weight: .medium, design: .rounded))
                     .foregroundColor(Theme.textSecondary)
             }
         }
-        .padding(12)
+        .padding(Theme.spacing12)
         .background(Theme.secondaryBg)
-        .cornerRadius(6)
+        .cornerRadius(Theme.cornerRadiusSM)
         .sheet(isPresented: $showHealthDetail) {
             HealthDetailView(isPresented: $showHealthDetail)
                 .environmentObject(voltStore)
@@ -195,8 +191,6 @@ struct HealthSectionView: View {
     }
 }
 
-// MARK: - Settings Tab
-
 struct SettingsTabView: View {
     @ObservedObject var voltStore: VoltStore
     @State private var showingExportSheet = false
@@ -204,10 +198,9 @@ struct SettingsTabView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                // Notifications section
+            VStack(spacing: Theme.spacing16) {
                 settingsSection(title: "NOTIFICATIONS") {
-                    VStack(spacing: 12) {
+                    VStack(spacing: Theme.spacing12) {
                         Toggle("Fully Charged Alert", isOn: $voltStore.notifyFullyCharged)
                             .toggleStyle(.switch)
                             .controlSize(.small)
@@ -219,7 +212,7 @@ struct SettingsTabView: View {
                         if voltStore.notifyLowBattery {
                             HStack {
                                 Text("Threshold:")
-                                    .font(.system(size: 12))
+                                    .font(.system(size: Theme.fontSizeSubheadline))
                                     .foregroundColor(Theme.textSecondary)
                                 Slider(
                                     value: Binding(
@@ -230,7 +223,7 @@ struct SettingsTabView: View {
                                     step: 5
                                 )
                                 Text("\(voltStore.lowBatteryThreshold)%")
-                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium, design: .rounded))
                                     .frame(width: 36)
                             }
                         }
@@ -241,35 +234,33 @@ struct SettingsTabView: View {
                     }
                 }
 
-                // Export section
                 settingsSection(title: "DATA") {
-                    VStack(spacing: 8) {
+                    VStack(spacing: Theme.spacing8) {
                         Button(action: { showingExportView = true }) {
                             HStack {
                                 Image(systemName: "square.and.arrow.up")
                                 Text("Export Data...")
                                 Spacer()
                             }
-                            .font(.system(size: 12, weight: .medium))
+                            .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                             .foregroundColor(Theme.primaryBlue)
                         }
                         .buttonStyle(.plain)
                     }
                 }
 
-                // About section
                 settingsSection(title: "ABOUT") {
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: Theme.spacing4) {
                         Text("Volt")
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.system(size: Theme.fontSizeBody, weight: .medium))
                             .foregroundColor(Theme.textPrimary)
                         Text("Battery monitor and optimizer for Mac")
-                            .font(.system(size: 11))
+                            .font(.system(size: Theme.fontSizeCaption))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
             }
-            .padding(16)
+            .padding(Theme.spacing16)
         }
         .background(Theme.background)
         .sheet(isPresented: $showingExportView) {
@@ -279,18 +270,17 @@ struct SettingsTabView: View {
     }
 
     private func settingsSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Theme.spacing8) {
             Text(title)
-                .font(.system(size: 11, weight: .semibold))
+                .font(.system(size: Theme.fontSizeCaption, weight: .semibold))
                 .foregroundColor(Theme.textSecondary)
-                .tracking(0.05)
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: Theme.spacing8) {
                 content()
             }
-            .padding(12)
+            .padding(Theme.spacing12)
             .background(Theme.secondaryBg)
-            .cornerRadius(10)
+            .cornerRadius(Theme.cornerRadiusMD)
         }
     }
 
@@ -301,41 +291,43 @@ struct SettingsTabView: View {
     }
 }
 
-// MARK: - Battery Status Section
-
 struct BatteryStatusSection: View {
     let info: BatteryInfo
 
     var body: some View {
-        HStack(spacing: 24) {
-            // Large charge display
-            VStack(alignment: .leading, spacing: 4) {
+        HStack(spacing: Theme.spacing24) {
+            VStack(alignment: .leading, spacing: Theme.spacing4) {
                 HStack(alignment: .firstTextBaseline, spacing: 2) {
                     Text("\(info.charge)")
                         .font(.system(size: 42, weight: .bold, design: .rounded))
                         .foregroundColor(chargeColor)
+                        .accessibilityLabel("Battery charge \(info.charge) percent")
                     Text("%")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.system(size: Theme.fontSizeTitle2, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
 
-                HStack(spacing: 4) {
+                HStack(spacing: Theme.spacing4) {
                     Image(systemName: info.isCharging ? "bolt.fill" : "bolt")
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(info.isCharging ? Theme.accentGreen : Theme.textSecondary)
+                        .accessibilityLabel(info.isCharging ? "Charging" : "Not charging")
                     Text(statusText)
-                        .font(.system(size: 11))
+                        .font(.system(size: Theme.fontSizeCaption))
                         .foregroundColor(Theme.textSecondary)
+                        .accessibilityLabel("Status: \(statusText)")
                 }
             }
 
             Spacer()
 
-            // Battery details
             VStack(alignment: .trailing, spacing: 5) {
                 DetailRow(label: "Health", value: "\(info.healthPercent)%")
+                    .accessibilityElement(children: .combine)
                 DetailRow(label: "Cycles", value: "\(info.cycleCount)")
+                    .accessibilityElement(children: .combine)
                 DetailRow(label: "Temp", value: String(format: "%.1f°C", info.temperature))
+                    .accessibilityElement(children: .combine)
             }
         }
     }
@@ -354,32 +346,27 @@ struct BatteryStatusSection: View {
     }
 }
 
-// MARK: - Detail Row
-
 struct DetailRow: View {
     let label: String
     let value: String
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: Theme.spacing4) {
             Text(label)
-                .font(.system(size: 10))
+                .font(.system(size: Theme.fontSizeCaption2))
                 .foregroundColor(Theme.textSecondary)
             Text(value)
-                .font(.system(size: 10, weight: .medium))
+                .font(.system(size: Theme.fontSizeCaption2, weight: .medium))
                 .foregroundColor(Theme.textPrimary)
         }
     }
 }
 
-// MARK: - Limit Section
-
 struct LimitSection: View {
     @ObservedObject var voltStore: VoltStore
 
     var body: some View {
-        VStack(spacing: 12) {
-            // Toggle + limit display
+        VStack(spacing: Theme.spacing12) {
             HStack {
                 Toggle("Charging Limit", isOn: $voltStore.limitEnabled)
                     .toggleStyle(.switch)
@@ -388,11 +375,10 @@ struct LimitSection: View {
                 Spacer()
 
                 Text(voltStore.limitStatusText)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .foregroundColor(voltStore.limitEnabled ? Theme.accentGreen : Theme.textSecondary)
             }
 
-            // Slider
             VStack(spacing: 6) {
                 Slider(
                     value: Binding(
@@ -406,31 +392,24 @@ struct LimitSection: View {
 
                 HStack {
                     Text("50%")
-                        .font(.system(size: 9))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                     Spacer()
                     Text("100%")
-                        .font(.system(size: 9))
+                        .font(.system(size: Theme.fontSizeCaption2))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
 
-            // Apply button
             Button(action: {
                 voltStore.refreshBatteryInfo()
             }) {
                 Text("Refresh")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: Theme.fontSizeSubheadline, weight: .medium))
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.small)
         }
     }
-}
-
-// MARK: - Color Extension for Theme
-
-extension Color {
-    static let accentBlue = Theme.primaryBlue
 }

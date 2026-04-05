@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		089F7ABE9F8580F0578427A8 /* EnterpriseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF41E0A92B0A360A7493988 /* EnterpriseView.swift */; };
+		0982EAB8969CC75966E752F8 /* VoltPrivacyServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F255A8DAF45F89B5EB104C /* VoltPrivacyServiceTests.swift */; };
 		0B9626D738F2A216A1290AE0 /* BatteryHealthRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */; };
 		0D0FDB259A538C122D151F8D /* ShortcutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */; };
 		0E800876610F9764854FF449 /* InsightsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F28F98EB7A8A5987EDAB5C /* InsightsGenerator.swift */; };
@@ -17,9 +18,12 @@
 		3E879D3B9F84889B6D94BF33 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5CA4A0F950057FEE6B6B63F1 /* PrivacyInfo.xcprivacy */; };
 		400CD0F581F8FDF1AB57312A /* VoltAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629A190C310163574BDFC977 /* VoltAPIService.swift */; };
 		43F11E36553F2BC0A63F92DA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C59E4DEBE94D9E6B345ADA /* main.swift */; };
+		47A9FE5829910B85DE257946 /* BatteryHealthRecordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BEA19E1A4C67B1D1D4F48 /* BatteryHealthRecordTests.swift */; };
 		48AA5A0B986751C0EC2EF9F8 /* VoltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */; };
 		4C31C228AFBF30E1F264098B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AED66463A68582750B23A3F9 /* Assets.xcassets */; };
 		4DF4B0B81773D0F8E24ECB35 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA6408B205E3851FE72FB56 /* WidgetView.swift */; };
+		4EE2ACD95C889E7D5F5519AB /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DAFCC94381F7BEF146089D /* ThemeTests.swift */; };
+		680A9F689D2B27DB3140DC9D /* VoltWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576A410062B2C450F9B5E5DB /* VoltWidget.swift */; };
 		69B4A8169C88C34857AAAD5B /* ChargingScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08E05276FCB3C698544114D /* ChargingScheduleView.swift */; };
 		6ABEA5A1C834941C74FBAF99 /* PrivacyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95824A52C796F846787457B /* PrivacyService.swift */; };
 		6C2D616C907364813440EBEF /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */; };
@@ -27,6 +31,7 @@
 		7D6A465A3FDB194E2F0E3680 /* StatsHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */; };
 		7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */; };
 		800ADCCB554A6569B9536C22 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D24C4003BDB32E42566C5FDA /* SQLite */; };
+		8149FC9C1C6E3F30DB760B8A /* BatteryInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AF184AFBD169E92D949CA1 /* BatteryInfoTests.swift */; };
 		835D5065784B3FBF8308F26D /* HealthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */; };
 		86D870422239553BB7BD9B6C /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AD66F34B64598E3B23F4D /* ExportView.swift */; };
 		8EAF71B971D52BD59ABF4F1A /* ChargingHeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */; };
@@ -42,43 +47,66 @@
 		EBCB76CAAE362F1247B4F7B7 /* SubscriptionTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BF44EADBFC3D139ABD8848 /* SubscriptionTier.swift */; };
 		ED5222DF94F6F16056D5EE3E /* HealthPredictionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6A109BCDF450618F019FC /* HealthPredictionModel.swift */; };
 		F0048D0CA0B32018B824B9B3 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B94DCD2B710DB4634B116 /* SubscriptionManager.swift */; };
+		F16AE16857408587D1F3A796 /* ChargingSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B41258C6AD4B3519A09B17 /* ChargingSessionTests.swift */; };
 		F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */; };
 		F774D2245E56C25752086457 /* ChargingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE789967510DF7DB5E3A985C /* ChargingExportService.swift */; };
 		FA67DBD6638AFD77FB3A52E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */; };
 		FE0CE3A0017545849F4D1C78 /* PowerOptimizationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D529E29DC8214A4ECDC2B6 /* PowerOptimizationEngine.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		20B8EB09B09139AA3206B760 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5FE38D5A1B7E8204D69412A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B770F3F363A8C6FD113088A;
+			remoteInfo = Volt;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		01F72AD7583EC1F6C75F624C /* VoltTests.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VoltTests.entitlements; sourceTree = "<group>"; };
 		02EA057757AA3CB604EABD82 /* Volt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Volt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06F28F98EB7A8A5987EDAB5C /* InsightsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsGenerator.swift; sourceTree = "<group>"; };
 		080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltStore.swift; sourceTree = "<group>"; };
 		0CFBF295006A2659DC1F6505 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsHistoryView.swift; sourceTree = "<group>"; };
 		35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsManager.swift; sourceTree = "<group>"; };
+		45F255A8DAF45F89B5EB104C /* VoltPrivacyServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltPrivacyServiceTests.swift; sourceTree = "<group>"; };
 		498B94DCD2B710DB4634B116 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		52B41258C6AD4B3519A09B17 /* ChargingSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSessionTests.swift; sourceTree = "<group>"; };
+		576A410062B2C450F9B5E5DB /* VoltWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltWidget.swift; sourceTree = "<group>"; };
 		584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailView.swift; sourceTree = "<group>"; };
 		5AA6408B205E3851FE72FB56 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
+		5BEB4D4916E211CA2473C955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5CA4A0F950057FEE6B6B63F1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5D4B3C0FCEEC2D1AF922355B /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
+		60AF184AFBD169E92D949CA1 /* BatteryInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfoTests.swift; sourceTree = "<group>"; };
 		629A190C310163574BDFC977 /* VoltAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltAPIService.swift; sourceTree = "<group>"; };
 		64D529E29DC8214A4ECDC2B6 /* PowerOptimizationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerOptimizationEngine.swift; sourceTree = "<group>"; };
 		66C59E4DEBE94D9E6B345ADA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		697B1BF51EACC92462678F4D /* PowerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerProfile.swift; sourceTree = "<group>"; };
 		6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingHeatmapView.swift; sourceTree = "<group>"; };
+		7D1A4A31867610AF5B8DA3F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8941443E23AEE3AA59BB9354 /* BatteryHealthRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthRecord.swift; sourceTree = "<group>"; };
 		8B117E4906AD3A2675894994 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 		8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudSyncManager.swift; sourceTree = "<group>"; };
+		931C89D85B0E94DA21F6FD20 /* VoltTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoltTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF41E0A92B0A360A7493988 /* EnterpriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseView.swift; sourceTree = "<group>"; };
 		AED66463A68582750B23A3F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B374F8E5190F06E5D92D7AC0 /* TeamFleetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamFleetService.swift; sourceTree = "<group>"; };
 		B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSession.swift; sourceTree = "<group>"; };
 		B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryService.swift; sourceTree = "<group>"; };
+		BA6A9E4EB40F08C2184DD978 /* VoltWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VoltWidget.entitlements; sourceTree = "<group>"; };
 		BBDDCB962AEE0FEDB94B2ADA /* VoltAPIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltAPIView.swift; sourceTree = "<group>"; };
 		C2BF44EADBFC3D139ABD8848 /* SubscriptionTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTier.swift; sourceTree = "<group>"; };
+		C45BEA19E1A4C67B1D1D4F48 /* BatteryHealthRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthRecordTests.swift; sourceTree = "<group>"; };
+		C54A07C7E82ADC04BF517EC9 /* VoltWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VoltWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC6A109BCDF450618F019FC /* HealthPredictionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthPredictionModel.swift; sourceTree = "<group>"; };
 		CBDEF4DD073D3ADDA340EBC7 /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
 		CE789967510DF7DB5E3A985C /* ChargingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingExportService.swift; sourceTree = "<group>"; };
+		D5DAFCC94381F7BEF146089D /* ThemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		D87FF995C8A9191EEE7C845E /* VoltApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltApp.swift; sourceTree = "<group>"; };
 		DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E08E05276FCB3C698544114D /* ChargingScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingScheduleView.swift; sourceTree = "<group>"; };
@@ -140,6 +168,20 @@
 			path = AI;
 			sourceTree = "<group>";
 		};
+		6D796DE31510C1ECBFA2C93F /* VoltTests */ = {
+			isa = PBXGroup;
+			children = (
+				C45BEA19E1A4C67B1D1D4F48 /* BatteryHealthRecordTests.swift */,
+				60AF184AFBD169E92D949CA1 /* BatteryInfoTests.swift */,
+				52B41258C6AD4B3519A09B17 /* ChargingSessionTests.swift */,
+				7D1A4A31867610AF5B8DA3F3 /* Info.plist */,
+				D5DAFCC94381F7BEF146089D /* ThemeTests.swift */,
+				45F255A8DAF45F89B5EB104C /* VoltPrivacyServiceTests.swift */,
+				01F72AD7583EC1F6C75F624C /* VoltTests.entitlements */,
+			);
+			path = VoltTests;
+			sourceTree = "<group>";
+		};
 		70637E6EEECF2A8252FC39C3 /* Volt */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +218,16 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		A15546D1AA4D75E19301FABB /* VoltWidget */ = {
+			isa = PBXGroup;
+			children = (
+				5BEB4D4916E211CA2473C955 /* Info.plist */,
+				BA6A9E4EB40F08C2184DD978 /* VoltWidget.entitlements */,
+				576A410062B2C450F9B5E5DB /* VoltWidget.swift */,
+			);
+			path = VoltWidget;
+			sourceTree = "<group>";
+		};
 		A4871753CCA84A2B94AE81F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				02EA057757AA3CB604EABD82 /* Volt.app */,
+				931C89D85B0E94DA21F6FD20 /* VoltTests.xctest */,
+				C54A07C7E82ADC04BF517EC9 /* VoltWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				70637E6EEECF2A8252FC39C3 /* Volt */,
+				6D796DE31510C1ECBFA2C93F /* VoltTests */,
+				A15546D1AA4D75E19301FABB /* VoltWidget */,
 				DAA56F2CC96EE40D7384E421 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -214,6 +270,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0874DD48E8C2BF6A8A44EA71 /* VoltWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A02991CDB59D43B8C1F52259 /* Build configuration list for PBXNativeTarget "VoltWidget" */;
+			buildPhases = (
+				911EF45AA9AA8485A10BDE2C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoltWidget;
+			productName = VoltWidget;
+			productReference = C54A07C7E82ADC04BF517EC9 /* VoltWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0B770F3F363A8C6FD113088A /* Volt */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D1719E90F02DE1EBA79A270 /* Build configuration list for PBXNativeTarget "Volt" */;
@@ -234,6 +305,22 @@
 			productReference = 02EA057757AA3CB604EABD82 /* Volt.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3585C8123AC4BAF74CB2AC37 /* VoltTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AF8FEF86A3AD54BA7497E45 /* Build configuration list for PBXNativeTarget "VoltTests" */;
+			buildPhases = (
+				5AE831F34E94DE6B3667D223 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61F61669EF61BDEE44F3D011 /* PBXTargetDependency */,
+			);
+			name = VoltTests;
+			productName = VoltTests;
+			productReference = 931C89D85B0E94DA21F6FD20 /* VoltTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -243,7 +330,15 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					0874DD48E8C2BF6A8A44EA71 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
 					0B770F3F363A8C6FD113088A = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					3585C8123AC4BAF74CB2AC37 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Manual;
 					};
@@ -265,6 +360,8 @@
 			projectRoot = "";
 			targets = (
 				0B770F3F363A8C6FD113088A /* Volt */,
+				3585C8123AC4BAF74CB2AC37 /* VoltTests */,
+				0874DD48E8C2BF6A8A44EA71 /* VoltWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -325,7 +422,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5AE831F34E94DE6B3667D223 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A9FE5829910B85DE257946 /* BatteryHealthRecordTests.swift in Sources */,
+				8149FC9C1C6E3F30DB760B8A /* BatteryInfoTests.swift in Sources */,
+				F16AE16857408587D1F3A796 /* ChargingSessionTests.swift in Sources */,
+				4EE2ACD95C889E7D5F5519AB /* ThemeTests.swift in Sources */,
+				0982EAB8969CC75966E752F8 /* VoltPrivacyServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911EF45AA9AA8485A10BDE2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				680A9F689D2B27DB3140DC9D /* VoltWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		61F61669EF61BDEE44F3D011 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B770F3F363A8C6FD113088A /* Volt */;
+			targetProxy = 20B8EB09B09139AA3206B760 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		446FA9C65060DCD6F2A3915C /* Release */ = {
@@ -384,6 +509,33 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		6072C03D8D2B7A8D484C7F1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = VoltWidget/VoltWidget.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VoltWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.volt.app.widget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		766DAE914520F505CC565B34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = VoltTests/VoltTests.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VoltTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.volt.app.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Volt.app/Contents/MacOS/Volt";
 			};
 			name = Release;
 		};
@@ -467,6 +619,19 @@
 			};
 			name = Debug;
 		};
+		BE9097A3EB5261021BB10034 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = VoltWidget/VoltWidget.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VoltWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.volt.app.widget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 		C548FCDAA7715E87CBD0AF52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -481,6 +646,20 @@
 			};
 			name = Release;
 		};
+		D1A31CD41E69800CF38C8449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = VoltTests/VoltTests.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VoltTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.volt.app.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Volt.app/Contents/MacOS/Volt";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -493,11 +672,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		3AF8FEF86A3AD54BA7497E45 /* Build configuration list for PBXNativeTarget "VoltTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1A31CD41E69800CF38C8449 /* Debug */,
+				766DAE914520F505CC565B34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		6D1719E90F02DE1EBA79A270 /* Build configuration list for PBXNativeTarget "Volt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A8394C931E939205C3763019 /* Debug */,
 				C548FCDAA7715E87CBD0AF52 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A02991CDB59D43B8C1F52259 /* Build configuration list for PBXNativeTarget "VoltWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE9097A3EB5261021BB10034 /* Debug */,
+				6072C03D8D2B7A8D484C7F1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
