@@ -3,6 +3,7 @@ import SwiftUI
 struct OnboardingView: View {
     @State private var currentPage = 0
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var onComplete: (() -> Void)?
 
     var body: some View {
@@ -21,7 +22,7 @@ struct OnboardingView: View {
                     title: currentPage == 3 ? "Open Volt" : "Continue",
                     action: {
                         if currentPage < 3 {
-                            withAnimation(accessibilityReduceMotion ? .none : .spring(response: 0.35, dampingFraction: 0.65)) {
+                            withAnimation(reduceMotion ? .none : .spring(response: 0.35, dampingFraction: 0.65)) {
                                 currentPage += 1
                             }
                         } else {
