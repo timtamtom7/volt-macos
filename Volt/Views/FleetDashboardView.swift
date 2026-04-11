@@ -26,7 +26,7 @@ struct FleetDashboardView: View {
             Text("Team Fleet Management")
                 .font(.system(size: Theme.fontSizeTitle2, weight: .bold))
 
-            Text("Share power profiles with your team, monitor fleet battery health, and manage power policies across organization.")
+            Text("Share power profiles with your team, monitor fleet battery health, and manage power policies across your organization.")
                 .multilineTextAlignment(.center)
                 .foregroundColor(Theme.textSecondary)
                 .frame(maxWidth: 400)

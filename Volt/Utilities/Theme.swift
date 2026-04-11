@@ -76,7 +76,7 @@ enum Theme {
 
     // MARK: - macOS 26 Shape System
 
-    /// Rounded rectangles for Mini/Small/Medium controls (desktop)
+    /// Rounded rectangles for Medium controls (desktop)
     static let cornerRadiusSM: CGFloat = 6
     static let cornerRadiusMD: CGFloat = 8
     static let cornerRadiusLG: CGFloat = 12

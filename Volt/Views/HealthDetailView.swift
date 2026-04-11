@@ -226,6 +226,7 @@ struct HealthDetailView: View {
                     Text(String(format: "%+.2f%%", avgChange))
                         .font(.system(size: Theme.fontSizeHeadline, weight: .bold, design: .rounded))
                         .foregroundColor(avgChange >= 0 ? Theme.accentGreen : Theme.accentRed)
+                        .accessibilityLabel("Monthly health change: \(String(format: "%+.2f", avgChange)) percent")
                 }
 
                 Spacer()

@@ -13,6 +13,7 @@
 		0D0FDB259A538C122D151F8D /* ShortcutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */; };
 		0E800876610F9764854FF449 /* InsightsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F28F98EB7A8A5987EDAB5C /* InsightsGenerator.swift */; };
 		15351558217F8EEFBD59C639 /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B3C0FCEEC2D1AF922355B /* RecommendationsView.swift */; };
+		171FE8D39713BF4E16507899 /* AppStoreScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEE78F8CA3A6A7BE268B9E6 /* AppStoreScreenshotView.swift */; };
 		1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B979BD3A4F37BBFB28CD28D5 /* BatteryService.swift */; };
 		3C63ACF073700B7FCDC19073 /* ChargingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67811C77B170FBBCFA6FD63 /* ChargingSession.swift */; };
 		3E879D3B9F84889B6D94BF33 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5CA4A0F950057FEE6B6B63F1 /* PrivacyInfo.xcprivacy */; };
@@ -36,8 +37,10 @@
 		86D870422239553BB7BD9B6C /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AD66F34B64598E3B23F4D /* ExportView.swift */; };
 		8EAF71B971D52BD59ABF4F1A /* ChargingHeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */; };
 		8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */; };
+		AACAF78CA63E2B2F801F3485 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37EC13BB41FC2E2BB8A80F /* OnboardingView.swift */; };
 		AC71D7A5E90A46D23B9F76AC /* VoltAPIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDDCB962AEE0FEDB94B2ADA /* VoltAPIView.swift */; };
 		B13D256B3BA78E570BAB95DC /* iCloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */; };
+		B7744C9B734343874DE9DEB9 /* LaunchAtLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926A62EB5A6703A8A692F4A /* LaunchAtLoginService.swift */; };
 		B958BA20B1A1D512C7DC7AC5 /* TeamFleetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374F8E5190F06E5D92D7AC0 /* TeamFleetService.swift */; };
 		CBC3B370C96F538A4BF6CBEE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBF295006A2659DC1F6505 /* Theme.swift */; };
 		D3F4997FC5B8C26359AC7D8B /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B117E4906AD3A2675894994 /* AppIconView.swift */; };
@@ -71,7 +74,9 @@
 		080A88360E9CE9A9A2BFB4C9 /* VoltStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltStore.swift; sourceTree = "<group>"; };
 		0CFBF295006A2659DC1F6505 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsHistoryView.swift; sourceTree = "<group>"; };
+		2926A62EB5A6703A8A692F4A /* LaunchAtLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginService.swift; sourceTree = "<group>"; };
 		35AB7B91BBDCB06A1618D0C7 /* ShortcutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsManager.swift; sourceTree = "<group>"; };
+		3F37EC13BB41FC2E2BB8A80F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		45F255A8DAF45F89B5EB104C /* VoltPrivacyServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltPrivacyServiceTests.swift; sourceTree = "<group>"; };
 		498B94DCD2B710DB4634B116 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -108,6 +113,7 @@
 		CE789967510DF7DB5E3A985C /* ChargingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingExportService.swift; sourceTree = "<group>"; };
 		D5DAFCC94381F7BEF146089D /* ThemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		D87FF995C8A9191EEE7C845E /* VoltApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoltApp.swift; sourceTree = "<group>"; };
+		DCEE78F8CA3A6A7BE268B9E6 /* AppStoreScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreScreenshotView.swift; sourceTree = "<group>"; };
 		DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E08E05276FCB3C698544114D /* ChargingScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingScheduleView.swift; sourceTree = "<group>"; };
 		E6353A9474FB8D2F82D54B85 /* PlatformExpansionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformExpansionService.swift; sourceTree = "<group>"; };
@@ -146,6 +152,7 @@
 				FAE5A5409367FFC8176C4DFD /* DatabaseService.swift */,
 				F82F58791B26792EB78D3B1D /* HealthTrackingService.swift */,
 				8C0F8D95C0F3196143B34327 /* iCloudSyncManager.swift */,
+				2926A62EB5A6703A8A692F4A /* LaunchAtLoginService.swift */,
 				4D3B42A78D6AACC9EA8255A4 /* NotificationService.swift */,
 				E6353A9474FB8D2F82D54B85 /* PlatformExpansionService.swift */,
 				E95824A52C796F846787457B /* PrivacyService.swift */,
@@ -232,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				8B117E4906AD3A2675894994 /* AppIconView.swift */,
+				DCEE78F8CA3A6A7BE268B9E6 /* AppStoreScreenshotView.swift */,
 				6AE851EE778DC6C0E5354762 /* ChargingHeatmapView.swift */,
 				E08E05276FCB3C698544114D /* ChargingScheduleView.swift */,
 				DEE6E15AE02FFF2D452FF6B5 /* ContentView.swift */,
@@ -239,6 +247,7 @@
 				FF6AD66F34B64598E3B23F4D /* ExportView.swift */,
 				EC276C3FCBD83F01FDBA77F0 /* FleetDashboardView.swift */,
 				584EE4ACD36004D3B6DA5396 /* HealthDetailView.swift */,
+				3F37EC13BB41FC2E2BB8A80F /* OnboardingView.swift */,
 				5D4B3C0FCEEC2D1AF922355B /* RecommendationsView.swift */,
 				1B5FAA8A3B98E084958A7BBD /* StatsHistoryView.swift */,
 				BBDDCB962AEE0FEDB94B2ADA /* VoltAPIView.swift */,
@@ -384,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3F4997FC5B8C26359AC7D8B /* AppIconView.swift in Sources */,
+				171FE8D39713BF4E16507899 /* AppStoreScreenshotView.swift in Sources */,
 				0B9626D738F2A216A1290AE0 /* BatteryHealthRecord.swift in Sources */,
 				F725F06B140BC4DB7CEAC8A7 /* BatteryInfo.swift in Sources */,
 				1F2C164F4FF5BAC0866E0B4C /* BatteryService.swift in Sources */,
@@ -400,7 +410,9 @@
 				ED5222DF94F6F16056D5EE3E /* HealthPredictionModel.swift in Sources */,
 				8FE41B41622790867BB40996 /* HealthTrackingService.swift in Sources */,
 				0E800876610F9764854FF449 /* InsightsGenerator.swift in Sources */,
+				B7744C9B734343874DE9DEB9 /* LaunchAtLoginService.swift in Sources */,
 				7DB1422B0DEF434EE536F966 /* NotificationService.swift in Sources */,
+				AACAF78CA63E2B2F801F3485 /* OnboardingView.swift in Sources */,
 				E636208C8432371B339EEEFE /* PlatformExpansionService.swift in Sources */,
 				FE0CE3A0017545849F4D1C78 /* PowerOptimizationEngine.swift in Sources */,
 				DDB8F963906D24EC4A73A814 /* PowerProfile.swift in Sources */,

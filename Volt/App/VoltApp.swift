@@ -30,22 +30,42 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-        guard let button = statusItem.button else { return }
-        button.title = "--%"
-        button.font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
-        button.action = #selector(togglePopover)
-        button.target = self
+        if let button = statusItem.button {
+            button.title = "--%"
+            button.font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
+            button.action = #selector(togglePopover)
+            button.target = self
+        }
     }
 
     private func setupPopover() {
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 380, height: 420)
+        popover.contentSize = NSSize(width: 400, height: 500)
         popover.behavior = .transient
         popover.animates = true
 
+        Task { @MainActor in
+            let store = VoltState.shared.store
+            let hasSeenOnboarding = UserDefaults.standard.object(forKey: "hasSeenOnboarding") as? Bool == true
+            
+            let rootView: AnyView
+            if hasSeenOnboarding {
+                rootView = AnyView(ContentView(voltStore: store))
+            } else {
+                rootView = AnyView(OnboardingView(onComplete: { [weak self] in
+                    self?.refreshPopoverContent()
+                }))
+            }
+            
+            self.popover.contentViewController = NSHostingController(rootView: rootView)
+        }
+    }
+    
+    @MainActor
+    func refreshPopoverContent() {
         let store = VoltState.shared.store
         let contentView = ContentView(voltStore: store)
-        popover.contentViewController = NSHostingController(rootView: contentView)
+        popover.contentViewController = NSHostingController(rootView: AnyView(contentView))
     }
 
     private func setupEventMonitor() {
@@ -77,7 +97,11 @@ final class VoltAppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Notifications
 
     private func requestNotificationPermission() {
-        VoltNotificationService.shared.requestAuthorization { _ in }
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            if settings.authorizationStatus == .notDetermined {
+                VoltNotificationService.shared.requestAuthorization { _ in }
+            }
+        }
     }
 
     // MARK: - Actions

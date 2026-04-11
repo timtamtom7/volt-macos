@@ -254,7 +254,7 @@ struct SettingsTabView: View {
                         Text("Volt")
                             .font(.system(size: Theme.fontSizeBody, weight: .medium))
                             .foregroundColor(Theme.textPrimary)
-                        Text("Battery monitor and optimizer for Mac")
+                        Text("Track your battery health and optimize charging habits.")
                             .font(.system(size: Theme.fontSizeCaption))
                             .foregroundColor(Theme.textSecondary)
                     }
@@ -359,6 +359,7 @@ struct DetailRow: View {
                 .font(.system(size: Theme.fontSizeCaption2, weight: .medium))
                 .foregroundColor(Theme.textPrimary)
         }
+        .accessibilityLabel("\(label): \(value)")
     }
 }
 
@@ -388,6 +389,7 @@ struct LimitSection: View {
                     in: 50...100,
                     step: 5
                 )
+                .accessibilityLabel("Charge limit slider, currently set to \(voltStore.chargeLimit) percent")
                 .disabled(!voltStore.limitEnabled)
 
                 HStack {

@@ -3,6 +3,7 @@ import SwiftUI
 struct OnboardingView: View {
     @State private var currentPage = 0
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    var onComplete: (() -> Void)?
 
     var body: some View {
         ZStack {
@@ -10,20 +11,8 @@ struct OnboardingView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                TabView(selection: $currentPage) {
-                    MeetVoltPage()
-                        .tag(0)
-
-                    ChargingInsightsPage()
-                        .tag(1)
-
-                    HealthThatMattersPage()
-                        .tag(2)
-
-                    YourePoweredUpPage(hasSeenOnboarding: $hasSeenOnboarding)
-                        .tag(3)
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                OnboardingPageView(currentPage: $currentPage)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 PageIndicator(currentPage: currentPage, totalPages: 4)
                     .padding(.vertical, Theme.spacing24)
@@ -32,11 +21,12 @@ struct OnboardingView: View {
                     title: currentPage == 3 ? "Open Volt" : "Continue",
                     action: {
                         if currentPage < 3 {
-                            withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
+                            withAnimation(accessibilityReduceMotion ? .none : .spring(response: 0.35, dampingFraction: 0.65)) {
                                 currentPage += 1
                             }
                         } else {
                             hasSeenOnboarding = true
+                            onComplete?()
                         }
                     }
                 )
@@ -112,7 +102,7 @@ struct ChargingInsightsPage: View {
             }
 
             VStack(alignment: .leading, spacing: Theme.spacing16) {
-                FeatureRow(icon: "bolt.fill", iconColor: Color(hex: "00D4FF"), text: "Automatic session tracking — no setup needed")
+                FeatureRow(icon: "bolt.fill", iconColor: Color(hex: "00D4FF"), text: "Automatic session tracking while Volt is running")
                 FeatureRow(icon: "square.grid.2x2", iconColor: Color(hex: "34C759"), text: "Charging heatmap shows your weekly patterns")
                 FeatureRow(icon: "battery.75", iconColor: Color(hex: "34C759"), text: "Optimal charge range: 20%–80%")
             }
@@ -180,7 +170,6 @@ struct HealthThatMattersPage: View {
 // MARK: - Page 4: You're Powered Up
 
 struct YourePoweredUpPage: View {
-    @Binding var hasSeenOnboarding: Bool
 
     var body: some View {
         VStack(spacing: Theme.spacing24) {
@@ -275,6 +264,28 @@ struct ActionButton: View {
                 )
         }
         .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Page View Component
+
+struct OnboardingPageView: View {
+    @Binding var currentPage: Int
+
+    var body: some View {
+        ZStack {
+            switch currentPage {
+            case 0:
+                MeetVoltPage()
+            case 1:
+                ChargingInsightsPage()
+            case 2:
+                HealthThatMattersPage()
+            default:
+                YourePoweredUpPage()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

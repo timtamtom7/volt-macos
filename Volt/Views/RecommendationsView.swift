@@ -210,14 +210,10 @@ enum RecommendationType {
     }
 
     var backgroundColor: Color {
-        switch self {
-        case .success: return Theme.accentGreen
-        case .info: return Theme.primaryBlue
-        case .warning: return Theme.accentOrange
-        }
+        color.opacity(0.08)
     }
 
     var borderColor: Color {
-        color.opacity(0.3)
+        color.opacity(0.25)
     }
 }
